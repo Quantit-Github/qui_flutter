@@ -2,6 +2,7 @@ name: qui_flutter
 description: Quantit standart UI System for Flutter
 version: 0.0.1
 homepage:
+repository: https://github.com/Quantit-Github/qui_flutter
 
 environment:
   sdk: ">=3.0.5 <4.0.0"
