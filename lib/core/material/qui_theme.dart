@@ -3,6 +3,7 @@ import 'package:qui_flutter/core/inherited_qui_theme.dart';
 import 'package:qui_flutter/core/mode.dart';
 import 'package:qui_flutter/core/theme_manager.dart';
 import 'package:qui_flutter/core/theme_preferences.dart';
+import 'package:qui_flutter/style/theme.dart';
 
 // typedef QuiThemeBuilder = Widget Function(ThemeData light, ThemeData dark);
 typedef QuiThemeBuilder = Widget Function(
@@ -13,18 +14,18 @@ typedef QuiThemeBuilder = Widget Function(
 
 class QuiMaterialTheme extends StatefulWidget {
   const QuiMaterialTheme({
-    ThemeData? dark,
-    required this.light,
+    this.dark,
+    this.light,
     required this.builder,
     required this.initial,
     super.key,
-  }) : dark = dark ?? light;
+  });
 
   /// Represents the light theme for the app.
-  final ThemeData light;
+  final ThemeData? light;
 
   /// Represents the dark theme for the app. (Optional)
-  final ThemeData dark;
+  final ThemeData? dark;
 
   /// Provides a builder with access of light and dark theme. Intended to
   /// be used to return [MaterialApp].
@@ -56,8 +57,8 @@ class _QuiMaterialThemeState extends State<QuiMaterialTheme>
   void initState() {
     super.initState();
     initializeTheme(
-      light: widget.light,
-      dark: widget.dark,
+      light: widget.light ?? QuiTheme.light,
+      dark: widget.dark ?? QuiTheme.dark,
       initial: widget.initial,
     );
     WidgetsBinding.instance.addObserver(this);
@@ -97,8 +98,8 @@ class _QuiMaterialThemeState extends State<QuiMaterialTheme>
   @override
   Future<bool> reset() async {
     setTheme(
-      light: widget.light,
-      dark: widget.dark,
+      light: widget.light ?? QuiTheme.light,
+      dark: widget.dark ?? QuiTheme.dark,
       notify: false,
     );
     return super.reset();

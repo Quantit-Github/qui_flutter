@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:qui_flutter/core/material/qui_theme.dart';
 import 'package:qui_flutter/core/mode.dart';
+import 'package:qui_flutter/style/theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,14 +24,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return QuiMaterialTheme(
       // User custom theme (light, dark)
-      light: ThemeData(
-        brightness: Brightness.light,
-        primarySwatch: Colors.green,
-      ),
-      dark: ThemeData(
-        brightness: Brightness.dark,
-        primarySwatch: Colors.amber,
-      ),
+
       initial: themeMode ?? QuiThemeMode.light,
       builder: (theme, light, dark) {
         log((light == dark).toString(), name: "light == dark");
@@ -124,12 +118,13 @@ class _MyHomePageState extends State<MyHomePage> {
           // wireframe for each widget.
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
+            Text(
               'You have pushed the button this many times:',
+              style: Theme.of(context).textTheme.bodyLargeBoldUnderlined,
             ),
             Text(
               '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
+              style: Theme.of(context).textTheme.displayLargeBold,
             ),
           ],
         ),
