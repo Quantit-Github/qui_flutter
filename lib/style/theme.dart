@@ -1,23 +1,103 @@
 import 'package:flutter/material.dart';
+import 'package:qui_flutter/style/color_pallete.dart';
 
-const fontFamily = "Pretendard";
+const fontFamilyDefine = "Pretendard";
 
-class QuiTheme {
+class QuiThemeData {
+  final Brightness brightness;
+  final Color primaryColor;
+  final Color splashColor;
+  final Color fontFamily;
+  final Color textTheme;
+  final Color colorScheme;
+
+  QuiThemeData({
+    required this.brightness,
+    required this.primaryColor,
+    required this.splashColor,
+    required this.fontFamily,
+    required this.textTheme,
+    required this.colorScheme,
+  });
+
+  static ThemeData lightSetting(QuiColorPalette p) =>
+      QuiThemeData.light.copyWith();
+
+  static ThemeData darkSetting(QuiColorPalette p) => QuiThemeData.dark.copyWith(
+        colorScheme: ColorScheme(
+          brightness: Brightness.light,
+          primary: p.primaryColor,
+          onPrimary: p.accentColor,
+          secondary: Colors.black,
+          onSecondary: Colors.orange,
+          error: Colors.red,
+          onError: Colors.redAccent,
+          background: p.backgroundColor,
+          onBackground: p.backgroundColor,
+          surface: p.accentColor,
+          onSurface: p.accentColor,
+        ),
+      );
+
   static ThemeData get light => ThemeData(
         brightness: Brightness.light,
         primaryColor: Colors.white,
         splashColor: Colors.transparent,
-        fontFamily: fontFamily,
+        fontFamily: fontFamilyDefine,
         textTheme: QuiTextTheme.textTheme,
+        colorScheme: ColorScheme(
+          brightness: Brightness.light,
+          primary: QuiColorPalette.lightTheme.primaryColor,
+          onPrimary: QuiColorPalette.lightTheme.accentColor,
+          secondary: Colors.greenAccent,
+          onSecondary: Colors.orange,
+          error: Colors.red,
+          onError: Colors.redAccent,
+          background: QuiColorPalette.lightTheme.backgroundColor,
+          onBackground: QuiColorPalette.lightTheme.backgroundColor,
+          surface: QuiColorPalette.lightTheme.accentColor,
+          onSurface: QuiColorPalette.lightTheme.accentColor,
+        ),
       );
 
   static ThemeData get dark => ThemeData(
-        brightness: Brightness.dark,
-        primaryColor: Colors.black,
+        brightness: Brightness.light,
+        primaryColor: Colors.white,
         splashColor: Colors.transparent,
-        fontFamily: fontFamily,
+        fontFamily: fontFamilyDefine,
         textTheme: QuiTextTheme.textTheme,
+        colorScheme: ColorScheme(
+          brightness: Brightness.light,
+          primary: QuiColorPalette.darkTheme.primaryColor,
+          onPrimary: QuiColorPalette.darkTheme.accentColor,
+          secondary: Colors.greenAccent,
+          onSecondary: Colors.orange,
+          error: Colors.red,
+          onError: Colors.redAccent,
+          background: QuiColorPalette.darkTheme.backgroundColor,
+          onBackground: QuiColorPalette.darkTheme.backgroundColor,
+          surface: QuiColorPalette.darkTheme.accentColor,
+          onSurface: QuiColorPalette.darkTheme.accentColor,
+        ),
       );
+
+  QuiThemeData copyWith({
+    Brightness? brightness,
+    Color? primaryColor,
+    Color? splashColor,
+    Color? fontFamily,
+    Color? textTheme,
+    Color? colorScheme,
+  }) {
+    return QuiThemeData(
+      brightness: brightness ?? this.brightness,
+      colorScheme: colorScheme ?? this.colorScheme,
+      fontFamily: fontFamily ?? this.fontFamily,
+      primaryColor: primaryColor ?? this.primaryColor,
+      splashColor: splashColor ?? this.splashColor,
+      textTheme: textTheme ?? this.textTheme,
+    );
+  }
 }
 
 class QuiTextTheme {
