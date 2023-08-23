@@ -1,14 +1,11 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:qui_flutter/core/material/qui_theme.dart';
-import 'package:qui_flutter/core/mode.dart';
-import 'package:qui_flutter/style/theme.dart';
+import 'package:qui_flutter/core/qui_theme.dart';
+import 'package:qui_flutter/style/color_pallete.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final savedThemeMode = await QuiMaterialTheme.getThemeMode();
 
+  final savedThemeMode = await QuiTheme.getThemeMode();
   runApp(MyApp(themeMode: savedThemeMode));
 }
 
@@ -18,29 +15,20 @@ class MyApp extends StatelessWidget {
     super.key,
   });
 
-  final QuiThemeMode? themeMode;
+  final ThemeMode themeMode;
 
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return QuiMaterialTheme(
-      // User custom theme (light, dark)
-
-      initial: themeMode ?? QuiThemeMode.light,
-      builder: (theme, light, dark) {
-        log((light == dark).toString(), name: "light == dark");
-        log(dark.brightness.toString(), name: "dark");
-        log(light.brightness.toString(), name: "light");
-        return MaterialApp(
-          title: 'Flutter Demo',
-          theme: theme,
-          home: FutureBuilder(
-              future: QuiMaterialTheme.getThemeMode(),
-              builder: (context, snapshot) {
-                log(snapshot.data?.modeName ?? "", name: "Current Theme Mode");
-                return MyHomePage(title: theme.brightness.toString());
-              }),
-        );
-      },
+    return QuiTheme(
+      initThemeMode: themeMode,
+      builder: (light, dark, mode) => MaterialApp(
+        theme: light,
+        darkTheme: dark,
+        title: 'Flutter Demo',
+        themeMode: mode,
+        home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      ),
     );
   }
 }
@@ -66,13 +54,9 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
-  void _incrementCounter() {
+  void _incrementCounter(BuildContext context) {
+    QuiTheme.of(context).toggleThemeMode();
     setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
       _counter++;
     });
   }
@@ -90,14 +74,9 @@ class _MyHomePageState extends State<MyHomePage> {
         // TRY THIS: Try changing the color here to a specific color (to
         // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
         // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: Text(
-          widget.title,
-          style: const TextStyle(color: Colors.amber),
-        ),
+        title: Text(QuiTheme.of(context).getThemeMode()),
       ),
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
@@ -118,22 +97,28 @@ class _MyHomePageState extends State<MyHomePage> {
           // wireframe for each widget.
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
+            const Text(
               'You have pushed the button this many times:',
-              style: Theme.of(context).textTheme.bodyLargeBoldUnderlined,
             ),
             Text(
               '$_counter',
-              style: Theme.of(context).textTheme.displayLargeBold,
+              style: Theme.of(context).textTheme.headlineMedium,
             ),
+            Container(
+              width: 100,
+              height: 100,
+              color: QuiTheme.of(context).colorPalette.primaryColor,
+            ),
+            Container(
+              width: 100,
+              height: 100,
+              color: QuiTheme.of(context).colorPalette.accentColor,
+            )
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          log("convert theme");
-          QuiMaterialTheme.of(context).toggleThemeMode();
-        },
+        onPressed: () => _incrementCounter(context),
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
