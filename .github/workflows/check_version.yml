@@ -6,8 +6,11 @@ on:
       - master
 
 jobs:
-  check_version:
+  version_check:
     runs-on: ubuntu-latest
+    outputs:
+      version_changed: ${{ steps.check_version.outputs.version_changed }}
+      new_version: ${{ steps.check_version.outputs.new_version }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -26,17 +29,26 @@ jobs:
           LATEST_TAG=$(git describe --tags --abbrev=0)
           echo "Latest tag: $LATEST_TAG"
           if [ "v$VERSION" != "$LATEST_TAG" ]; then
-            echo "::set-output name=version_changed::true"
-            echo "::set-output name=new_version::v$VERSION"
+            echo "version_changed=true" >> "$GITHUB_OUTPUT"
+            echo "new_version=v$VERSION" >> "$GITHUB_OUTPUT"
           else
-            echo "::set-output name=version_changed::false"
+            echo "version_changed=false" >> "$GITHUB_OUTPUT"
           fi
         shell: bash
 
-      - name: Create tag if version changed
-        if: steps.check_version.outputs.version_changed == 'true'
-        run: |
-          git config --local user.email "dwlee@quantit.io"
-          git config --local user.name "Qunatit QUI Master"
-          git tag ${{ steps.check_version.outputs.new_version }}
-          git push --tags
+  push_tags:
+    needs: version_check
+    runs-on: ubuntu-latest
+    if: needs.version_check.outputs.version_changed == 'true'
+    steps:
+      - uses: actions/checkout@v3
+      - uses: rickstaa/action-create-tag@v1
+        name: Push tags
+        id: push_new_tag
+        with:
+          tag: ${{ needs.version_check.outputs.new_version }}
+          tag_exists_error: false
+          message: "Flutter Qui Release :: ${{ needs.version_check.outputs.new_version }}"
+
+      - run: |
+          echo "Tag pushed: ${{ steps.push_new_tag.outputs.TAG_EXISTS }}"
