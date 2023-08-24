@@ -36,7 +36,7 @@ class QuiColorPalette {
 
   static QuiColorPalette get darkTheme => QuiColorPalette(
         primaryColor: Colors.redAccent,
-        accentColor: Colors.grey,
+        accentColor: Colors.green,
         backgroundColor: Colors.black,
         textColor: Colors.white,
       );

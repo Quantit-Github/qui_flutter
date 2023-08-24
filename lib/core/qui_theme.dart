@@ -29,14 +29,16 @@ class QuiTheme extends StatefulWidget {
   /// [darkTheme] define.
   final ThemeData? darkTheme;
 
-  final QuiColorPalette? colorPalette;
+  final QuiColorPalette? colorPaletteLight;
+  final QuiColorPalette? colorPaletteDark;
 
   const QuiTheme({
     this.initThemeMode = ThemeMode.system,
     required this.builder,
     this.darkTheme,
     this.lightTheme,
-    this.colorPalette,
+    this.colorPaletteLight,
+    this.colorPaletteDark,
     super.key,
   });
 
@@ -64,7 +66,8 @@ class _QuiThemeState extends State<QuiTheme> with QuiThemeManager {
       themeMode: widget.initThemeMode,
       light: widget.lightTheme ?? QuiThemeData.light,
       dark: widget.darkTheme ?? QuiThemeData.dark,
-      colorPalette: widget.colorPalette,
+      colorPaletteLight: widget.colorPaletteLight,
+      colorPaletteDark: widget.colorPaletteDark,
     );
     super.initState();
   }

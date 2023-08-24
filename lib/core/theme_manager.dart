@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:qui_flutter/core/theme_preferences.dart';
 import 'package:qui_flutter/style/color_pallete.dart';
-import 'package:qui_flutter/style/theme.dart';
 
 mixin QuiThemeManager {
   late final ThemeData _lightTheme;
   late final ThemeData _darkTheme;
   late final ValueNotifier<ThemeMode> _themeMode;
+  late final QuiColorPalette _colorPaletteLight;
+  late final QuiColorPalette _colorPaletteDark;
   late QuiColorPalette _colorPalette;
   ThemeData get lightTheme => _lightTheme;
   ThemeData get darkTheme => _darkTheme;
@@ -23,20 +24,15 @@ mixin QuiThemeManager {
     required ThemeMode themeMode,
     required ThemeData light,
     required ThemeData dark,
-    QuiColorPalette? colorPalette,
+    QuiColorPalette? colorPaletteLight,
+    QuiColorPalette? colorPaletteDark,
   }) {
-    if (colorPalette != null) {
-      _colorPalette = colorPalette;
-      isUseCustomColorPalette = true;
+    _colorPaletteLight = colorPaletteLight ?? QuiColorPalette.lightTheme;
+    _colorPaletteDark = colorPaletteDark ?? QuiColorPalette.darkTheme;
 
-      _lightTheme = QuiThemeData.light;
-      _darkTheme = QuiThemeData.dark;
-    } else {
-      _lightTheme = light;
-      _darkTheme = dark;
-      _selectColorPallete(themeMode);
-    }
-
+    _lightTheme = light;
+    _darkTheme = dark;
+    _selectColorPallete(themeMode);
     _themeMode = ValueNotifier(themeMode);
   }
 
@@ -83,17 +79,17 @@ mixin QuiThemeManager {
 
     switch (mode) {
       case ThemeMode.light:
-        _colorPalette = QuiColorPalette.lightTheme;
+        _colorPalette = _colorPaletteLight;
         break;
       case ThemeMode.dark:
-        _colorPalette = QuiColorPalette.darkTheme;
+        _colorPalette = _colorPaletteDark;
         break;
       case ThemeMode.system:
         _colorPalette =
             WidgetsBinding.instance.platformDispatcher.platformBrightness ==
                     Brightness.light
-                ? QuiColorPalette.lightTheme
-                : QuiColorPalette.darkTheme;
+                ? _colorPaletteLight
+                : _colorPaletteDark;
         break;
     }
   }

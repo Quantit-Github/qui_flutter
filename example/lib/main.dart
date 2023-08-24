@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:qui_flutter/core/qui_theme.dart';
-import 'package:qui_flutter/style/color_pallete.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
