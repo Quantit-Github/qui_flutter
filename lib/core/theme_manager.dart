@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:qui_flutter/core/theme_preferences.dart';
 import 'package:qui_flutter/style/color_pallete.dart';
+import 'package:qui_flutter/style/color_tokens/color_tokens.dart';
 
 mixin QuiThemeManager {
-  late final ThemeData _lightTheme;
-  late final ThemeData _darkTheme;
   late final ValueNotifier<ThemeMode> _themeMode;
-  late final QuiColorPalette _colorPaletteLight;
-  late final QuiColorPalette _colorPaletteDark;
-  late QuiColorPalette _colorPalette;
-  ThemeData get lightTheme => _lightTheme;
-  ThemeData get darkTheme => _darkTheme;
+  late QuiColorPallete _colorPalette;
   ValueNotifier<ThemeMode> get themeMode => _themeMode;
-  QuiColorPalette get colorPalette => _colorPalette;
+  QuiColorPallete get colorPalette => _colorPalette;
+  QuiColorTokens get colorTokens => QuiColorTokens(
+        isDark: isDark(),
+        cp: _colorPalette,
+      );
 
   /// 사용자가 커스텀 컬러 팔레트를 설정하는 경우 모드에 따라 변경되지 않고 고정됨.
   /// [QuiColorPalette.lightTheme] + [copyWith] 형태로 설정 가능.
@@ -22,16 +21,9 @@ mixin QuiThemeManager {
 
   void initTheme({
     required ThemeMode themeMode,
-    required ThemeData light,
-    required ThemeData dark,
-    QuiColorPalette? colorPaletteLight,
-    QuiColorPalette? colorPaletteDark,
+    QuiColorPallete? colorPalette,
   }) {
-    _colorPaletteLight = colorPaletteLight ?? QuiColorPalette.lightTheme;
-    _colorPaletteDark = colorPaletteDark ?? QuiColorPalette.darkTheme;
-
-    _lightTheme = light;
-    _darkTheme = dark;
+    _colorPalette = colorPalette ?? QuiColorPallete();
     _selectColorPallete(themeMode);
     _themeMode = ValueNotifier(themeMode);
   }
@@ -75,23 +67,23 @@ mixin QuiThemeManager {
   /// [Ligtht] or [Dark] or [UserCustom]
   ///
   void _selectColorPallete(ThemeMode mode) {
-    if (isUseCustomColorPalette) return;
+    // if (isUseCustomColorPalette) return;
 
-    switch (mode) {
-      case ThemeMode.light:
-        _colorPalette = _colorPaletteLight;
-        break;
-      case ThemeMode.dark:
-        _colorPalette = _colorPaletteDark;
-        break;
-      case ThemeMode.system:
-        _colorPalette =
-            WidgetsBinding.instance.platformDispatcher.platformBrightness ==
-                    Brightness.light
-                ? _colorPaletteLight
-                : _colorPaletteDark;
-        break;
-    }
+    // switch (mode) {
+    //   case ThemeMode.light:
+    //     _colorPalette = _colorPaletteLight;
+    //     break;
+    //   case ThemeMode.dark:
+    //     _colorPalette = _colorPaletteDark;
+    //     break;
+    //   case ThemeMode.system:
+    //     _colorPalette =
+    //         WidgetsBinding.instance.platformDispatcher.platformBrightness ==
+    //                 Brightness.light
+    //             ? _colorPaletteLight
+    //             : _colorPaletteDark;
+    //     break;
+    // }
   }
 
   ///
@@ -105,5 +97,17 @@ mixin QuiThemeManager {
     _selectColorPallete(mode);
     _themeMode.value = mode;
     store.setThemeMode(_themeMode.value);
+  }
+
+  bool isDark() {
+    switch (_themeMode.value) {
+      case ThemeMode.light:
+        return false;
+      case ThemeMode.dark:
+        return true;
+      case ThemeMode.system:
+        return WidgetsBinding.instance.platformDispatcher.platformBrightness ==
+            Brightness.dark;
+    }
   }
 }
