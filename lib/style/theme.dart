@@ -1,106 +1,87 @@
 import 'package:flutter/material.dart';
 import 'package:qui_flutter/style/color_pallete.dart';
 
-const fontFamilyDefine = "Pretendard";
+const fontFamily = "Pretendard";
 
-class QuiThemeData {
-  final Brightness brightness;
-  final Color primaryColor;
-  final Color splashColor;
-  final Color fontFamily;
-  final Color textTheme;
-  final Color colorScheme;
+class QuiColorTheme {
+  final QuiColorPallete colorPalette;
 
-  QuiThemeData({
-    required this.brightness,
-    required this.primaryColor,
-    required this.splashColor,
-    required this.fontFamily,
-    required this.textTheme,
-    required this.colorScheme,
-  });
+  QuiColorTheme({required this.colorPalette});
 
-  static ThemeData lightSetting(QuiColorPalette p) =>
-      QuiThemeData.light.copyWith();
-
-  static ThemeData darkSetting(QuiColorPalette p) => QuiThemeData.dark.copyWith(
-        colorScheme: ColorScheme(
-          brightness: Brightness.light,
-          primary: p.primaryColor,
-          onPrimary: p.accentColor,
-          secondary: Colors.black,
-          onSecondary: Colors.orange,
-          error: Colors.red,
-          onError: Colors.redAccent,
-          background: p.backgroundColor,
-          onBackground: p.backgroundColor,
-          surface: p.accentColor,
-          onSurface: p.accentColor,
+  /// 기본 Light 테마값
+  /// 앱 전반에 적용 되는 값.
+  /// 각 컴포넌트에 맞는 색상을 직접 컴포넌트에서 지정해야함.
+  ThemeData get light => ThemeData(
+        brightness: Brightness.light,
+        splashColor: Colors.transparent,
+        fontFamily: fontFamily,
+        textTheme: CustomTextTheme.textTheme,
+        focusColor: colorPalette.primary.s30,
+        highlightColor: colorPalette.blackColor.s20,
+        shadowColor: Colors.transparent,
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            elevation: 0,
+            backgroundColor: colorPalette.primary.s50,
+            disabledForegroundColor: colorPalette.grayScale.s50,
+            disabledBackgroundColor: colorPalette.blackColor.s20,
+            splashFactory: NoSplash.splashFactory,
+            shadowColor: Colors.transparent,
+          ),
+        ),
+        floatingActionButtonTheme: FloatingActionButtonThemeData(
+          splashColor: Colors.transparent,
+          elevation: 0,
+          foregroundColor: colorPalette.grayScale.s0,
+          backgroundColor: colorPalette.primary.s50,
         ),
       );
 
+  ThemeData get dark => ThemeData(
+        brightness: Brightness.light,
+        primaryColor: colorPalette.primary.s50,
+        splashColor: Colors.transparent,
+        fontFamily: fontFamily,
+        textTheme: CustomTextTheme.textTheme,
+        focusColor: colorPalette.primary.s30,
+        highlightColor: colorPalette.whiteColor.s20,
+        shadowColor: Colors.transparent,
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: colorPalette.primary.s40,
+            disabledForegroundColor: colorPalette.grayScale.s95,
+            disabledBackgroundColor: colorPalette.whiteColor.s20,
+            splashFactory: NoSplash.splashFactory,
+            shadowColor: Colors.transparent,
+          ),
+        ),
+        floatingActionButtonTheme: FloatingActionButtonThemeData(
+          splashColor: Colors.transparent,
+          foregroundColor: colorPalette.grayScale.s0,
+          backgroundColor: colorPalette.primary.s50,
+        ),
+      );
+}
+
+class CustomThemeData {
   static ThemeData get light => ThemeData(
         brightness: Brightness.light,
         primaryColor: Colors.white,
         splashColor: Colors.transparent,
-        fontFamily: fontFamilyDefine,
-        textTheme: QuiTextTheme.textTheme,
-        colorScheme: ColorScheme(
-          brightness: Brightness.light,
-          primary: QuiColorPalette.lightTheme.primaryColor,
-          onPrimary: QuiColorPalette.lightTheme.accentColor,
-          secondary: Colors.greenAccent,
-          onSecondary: Colors.orange,
-          error: Colors.red,
-          onError: Colors.redAccent,
-          background: QuiColorPalette.lightTheme.backgroundColor,
-          onBackground: QuiColorPalette.lightTheme.backgroundColor,
-          surface: QuiColorPalette.lightTheme.accentColor,
-          onSurface: QuiColorPalette.lightTheme.accentColor,
-        ),
+        fontFamily: fontFamily,
+        textTheme: CustomTextTheme.textTheme,
       );
 
   static ThemeData get dark => ThemeData(
-        brightness: Brightness.light,
-        primaryColor: Colors.white,
+        brightness: Brightness.dark,
+        primaryColor: Colors.black,
         splashColor: Colors.transparent,
-        fontFamily: fontFamilyDefine,
-        textTheme: QuiTextTheme.textTheme,
-        colorScheme: ColorScheme(
-          brightness: Brightness.light,
-          primary: QuiColorPalette.darkTheme.primaryColor,
-          onPrimary: QuiColorPalette.darkTheme.accentColor,
-          secondary: Colors.greenAccent,
-          onSecondary: Colors.orange,
-          error: Colors.red,
-          onError: Colors.redAccent,
-          background: QuiColorPalette.darkTheme.backgroundColor,
-          onBackground: QuiColorPalette.darkTheme.backgroundColor,
-          surface: QuiColorPalette.darkTheme.accentColor,
-          onSurface: QuiColorPalette.darkTheme.accentColor,
-        ),
+        fontFamily: fontFamily,
+        textTheme: CustomTextTheme.textTheme,
       );
-
-  QuiThemeData copyWith({
-    Brightness? brightness,
-    Color? primaryColor,
-    Color? splashColor,
-    Color? fontFamily,
-    Color? textTheme,
-    Color? colorScheme,
-  }) {
-    return QuiThemeData(
-      brightness: brightness ?? this.brightness,
-      colorScheme: colorScheme ?? this.colorScheme,
-      fontFamily: fontFamily ?? this.fontFamily,
-      primaryColor: primaryColor ?? this.primaryColor,
-      splashColor: splashColor ?? this.splashColor,
-      textTheme: textTheme ?? this.textTheme,
-    );
-  }
 }
 
-class QuiTextTheme {
+class CustomTextTheme {
   static get textTheme => const TextTheme(
         displayLarge: TextStyle(
           fontSize: 56,
