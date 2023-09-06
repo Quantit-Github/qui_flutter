@@ -33,11 +33,8 @@ assignees: ''
 
 **Environment**
 
-- `react` version:
-- `@quantit/qui-react` version:
-
-If you use React with a framework, please describe it. (e.g. Next.js)
--  framework version:
+- `flutter` version:
+- `pub.dev/qui_flutter` version:
 
 **Additional context**
 Add any other context about the problem here.
