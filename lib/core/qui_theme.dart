@@ -29,14 +29,16 @@ class QuiTheme extends StatefulWidget {
   /// [darkTheme] define.
   final ThemeData? darkTheme;
 
-  final QuiColorPallete? colorPalette;
+  final QuiColorPallete? lightColorPallete;
+  final QuiColorPallete? darkColorPallete;
 
   const QuiTheme({
     this.initThemeMode = ThemeMode.system,
     required this.builder,
     this.darkTheme,
     this.lightTheme,
-    this.colorPalette,
+    this.lightColorPallete,
+    this.darkColorPallete,
     super.key,
   });
 
@@ -62,7 +64,8 @@ class _QuiThemeState extends State<QuiTheme> with QuiThemeManager {
   void initState() {
     initTheme(
       themeMode: widget.initThemeMode,
-      colorPalette: widget.colorPalette,
+      lightColorPalette: widget.lightColorPallete,
+      darkColorPalette: widget.darkColorPallete,
     );
     super.initState();
   }
@@ -72,7 +75,10 @@ class _QuiThemeState extends State<QuiTheme> with QuiThemeManager {
     return ValueListenableBuilder<ThemeMode>(
         valueListenable: themeMode,
         builder: (context, value, _) {
-          final theme = QuiColorTheme(colorPalette: colorPalette);
+          final theme = QuiColorTheme(
+              colorPalette: value == ThemeMode.light
+                  ? lightColorPalette
+                  : darkColorPalette);
           return InheritedCustomTheme(
             themeManager: this,
             themeMode: value,

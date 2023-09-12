@@ -5,12 +5,15 @@ import 'package:qui_flutter/style/color_tokens/color_tokens.dart';
 
 mixin QuiThemeManager {
   late final ValueNotifier<ThemeMode> _themeMode;
-  late QuiColorPallete _colorPalette;
+  late QuiColorPallete _lightColorPalette;
+  late QuiColorPallete _darkColorPalette;
   ValueNotifier<ThemeMode> get themeMode => _themeMode;
-  QuiColorPallete get colorPalette => _colorPalette;
+  QuiColorPallete get lightColorPalette => _lightColorPalette;
+  QuiColorPallete get darkColorPalette => _darkColorPalette;
+  QuiColorPallete get colorPalette =>
+      isDark() ? _darkColorPalette : _lightColorPalette;
   QuiColorTokens get colorTokens => QuiColorTokens(
-        isDark: isDark(),
-        cp: _colorPalette,
+        cp: isDark() ? _darkColorPalette : _lightColorPalette,
       );
 
   /// 사용자가 커스텀 컬러 팔레트를 설정하는 경우 모드에 따라 변경되지 않고 고정됨.
@@ -21,9 +24,11 @@ mixin QuiThemeManager {
 
   void initTheme({
     required ThemeMode themeMode,
-    QuiColorPallete? colorPalette,
+    QuiColorPallete? lightColorPalette,
+    QuiColorPallete? darkColorPalette,
   }) {
-    _colorPalette = colorPalette ?? QuiColorPallete();
+    _lightColorPalette = lightColorPalette ?? QuiLightColorPallete();
+    _darkColorPalette = darkColorPalette ?? QuiDarkColorPallete();
     _selectColorPallete(themeMode);
     _themeMode = ValueNotifier(themeMode);
   }

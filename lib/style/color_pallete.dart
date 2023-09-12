@@ -3,29 +3,33 @@ import 'package:qui_flutter/style/base_color/gray_scale.dart';
 import 'package:qui_flutter/style/base_color/primary_color.dart';
 import 'package:qui_flutter/style/base_color/white_color.dart';
 
-class QuiColorPallete {
-  final PrimaryColor primary;
-  final GrayScale grayScale;
-  final WhiteColor whiteColor;
-  final BlackColor blackColor;
+///
+/// QUI 라이트 컬러 팔레트
+///
+class QuiLightColorPallete extends QuiColorPallete {
+  final PrimaryColor _primary;
+  final GrayScale _grayScale;
+  final WhiteColor _whiteColor;
+  final BlackColor _blackColor;
 
-  QuiColorPallete({
+  QuiLightColorPallete({
     PrimaryColor? primary,
     GrayScale? grayScale,
     WhiteColor? whiteColor,
     BlackColor? blackColor,
-  })  : primary = primary ?? PrimaryColor(),
-        grayScale = grayScale ?? GrayScale(),
-        whiteColor = whiteColor ?? WhiteColor(),
-        blackColor = blackColor ?? BlackColor();
+  })  : _primary = primary ?? PrimaryColor(),
+        _grayScale = grayScale ?? GrayScale(),
+        _whiteColor = whiteColor ?? WhiteColor(),
+        _blackColor = blackColor ?? BlackColor();
 
+  @override
   QuiColorPallete copyWith({
     PrimaryColor? primary,
     GrayScale? grayScale,
     WhiteColor? whiteColor,
     BlackColor? blackColor,
   }) {
-    return QuiColorPallete(
+    return QuiLightColorPallete(
       primary: primary ?? this.primary,
       grayScale: grayScale ?? this.grayScale,
       whiteColor: whiteColor ?? this.whiteColor,
@@ -33,23 +37,79 @@ class QuiColorPallete {
     );
   }
 
-  // static ColorPalette get lightTheme => ColorPalette(
-  //       primaryColor: Colors.blue,
-  //       accentColor: Colors.amber,
-  //       backgroundColor: Colors.white,
-  //       textColor: Colors.black,
-  //       primary: PrimaryColor(),
-  //       grayScale: GrayScale(),
-  //     );
+  @override
+  BlackColor get blackColor => _blackColor;
 
-  // static ColorPalette get darkTheme => ColorPalette(
-  //       primaryColor: Colors.red,
-  //       accentColor: Colors.redAccent,
-  //       backgroundColor: Colors.black,
-  //       textColor: Colors.white,
-  //       primary: PrimaryColor(),
-  //       grayScale: GrayScale(),
-  //     );
+  @override
+  GrayScale get grayScale => _grayScale;
 
-  // 여기에 추가적인 컬러값들을 정의하세요.
+  @override
+  PrimaryColor get primary => _primary;
+
+  @override
+  WhiteColor get whiteColor => _whiteColor;
+}
+
+///
+/// QUI 다크 컬러 팔레트
+///
+class QuiDarkColorPallete extends QuiColorPallete {
+  final PrimaryColor _primary;
+  final GrayScale _grayScale;
+  final WhiteColor _whiteColor;
+  final BlackColor _blackColor;
+
+  QuiDarkColorPallete({
+    PrimaryColor? primary,
+    GrayScale? grayScale,
+    WhiteColor? whiteColor,
+    BlackColor? blackColor,
+  })  : _primary = primary ?? PrimaryColor(),
+        _grayScale = grayScale ?? GrayScale(),
+        _whiteColor = whiteColor ?? WhiteColor(),
+        _blackColor = blackColor ?? BlackColor();
+
+  @override
+  QuiColorPallete copyWith({
+    PrimaryColor? primary,
+    GrayScale? grayScale,
+    WhiteColor? whiteColor,
+    BlackColor? blackColor,
+  }) {
+    return QuiDarkColorPallete(
+      primary: primary ?? this.primary,
+      grayScale: grayScale ?? this.grayScale,
+      whiteColor: whiteColor ?? this.whiteColor,
+      blackColor: blackColor ?? this.blackColor,
+    );
+  }
+
+  @override
+  BlackColor get blackColor => _blackColor;
+
+  @override
+  GrayScale get grayScale => _grayScale;
+
+  @override
+  PrimaryColor get primary => _primary;
+
+  @override
+  WhiteColor get whiteColor => _whiteColor;
+}
+
+///
+/// Base color palette
+///
+abstract class QuiColorPallete {
+  PrimaryColor get primary;
+  GrayScale get grayScale;
+  WhiteColor get whiteColor;
+  BlackColor get blackColor;
+
+  QuiColorPallete copyWith({
+    PrimaryColor? primary,
+    GrayScale? grayScale,
+    WhiteColor? whiteColor,
+    BlackColor? blackColor,
+  });
 }

@@ -1,5 +1,5 @@
-import 'package:qui_flutter/style/color_pallete.dart';
 import 'package:flutter/material.dart';
+import 'package:qui_flutter/style/color_pallete.dart';
 
 ///
 /// State Overlay Token

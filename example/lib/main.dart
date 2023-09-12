@@ -23,12 +23,22 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return QuiTheme(
       initThemeMode: themeMode,
-      colorPalette: QuiColorPallete().copyWith(
+      lightColorPallete: QuiLightColorPallete().copyWith(
         primary: PrimaryColor().copyWith(
+          s100: Colors.orange,
           s50: Colors.blue,
           s40: Colors.red,
           s30: Colors.green,
           s99: Colors.orange,
+        ),
+      ),
+      darkColorPallete: QuiDarkColorPallete().copyWith(
+        primary: PrimaryColor().copyWith(
+          s100: Colors.green,
+          s50: Colors.black,
+          s40: Colors.black,
+          s30: Colors.black,
+          s99: Colors.black,
         ),
       ),
       builder: (light, dark, mode) => MaterialApp(
@@ -82,25 +92,18 @@ class _MyHomePageState extends State<MyHomePage> {
                   Container(
                     width: 50,
                     height: 50,
-                    color: QuiTheme.of(context).colorTokens.stateOverlay.common,
+                    color: QuiTheme.of(context).colorPalette.primary.s100,
                   ),
                   Container(
                     width: 50,
                     height: 50,
-                    color: QuiTheme.of(context).colorTokens.stateOverlay.hover,
+                    color: QuiTheme.of(context).darkColorPalette.primary.s100,
                   ),
                   Container(
                     width: 50,
                     height: 50,
-                    color:
-                        QuiTheme.of(context).colorTokens.stateOverlay.pressed,
+                    color: QuiTheme.of(context).lightColorPalette.primary.s100,
                   ),
-                  Container(
-                    width: 50,
-                    height: 50,
-                    color:
-                        QuiTheme.of(context).colorTokens.stateOverlay.focused,
-                  )
                 ],
               ),
               const Text("Buttons"),
