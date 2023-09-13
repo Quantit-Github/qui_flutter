@@ -12,6 +12,7 @@ class QuiColorTheme {
   /// 앱 전반에 적용 되는 값.
   /// 각 컴포넌트에 맞는 색상을 직접 컴포넌트에서 지정해야함.
   ThemeData get light => ThemeData(
+        useMaterial3: true,
         brightness: Brightness.light,
         splashColor: Colors.transparent,
         fontFamily: fontFamily,
@@ -38,6 +39,7 @@ class QuiColorTheme {
       );
 
   ThemeData get dark => ThemeData(
+        useMaterial3: true,
         brightness: Brightness.light,
         primaryColor: colorPalette.primary.s50,
         splashColor: Colors.transparent,
