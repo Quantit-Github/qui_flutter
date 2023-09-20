@@ -71,3 +71,30 @@ abstract class BaseTripleScale {
     Color? s40,
   });
 }
+
+abstract class BaseSemanticColor {
+  final Color brightest;
+  final Color borderHigh;
+  final Color borderMedium;
+  final Color borderLow;
+  final Color stateOverlayFocused;
+  final Color primaryLighten;
+
+  BaseSemanticColor({
+    required this.brightest,
+    required this.borderHigh,
+    required this.borderMedium,
+    required this.borderLow,
+    required this.stateOverlayFocused,
+    required this.primaryLighten,
+  });
+
+  BaseSemanticColor copyWith({
+    Color? brightest,
+    Color? borderHigh,
+    Color? borderMedium,
+    Color? borderLow,
+    Color? stateOverlayFocused,
+    Color? primaryLighten,
+  });
+}

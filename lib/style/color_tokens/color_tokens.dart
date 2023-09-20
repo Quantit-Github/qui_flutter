@@ -1,5 +1,6 @@
 import 'package:qui_flutter/style/color_pallete.dart';
 import 'package:qui_flutter/style/color_tokens/button/button_token.dart';
+import 'package:qui_flutter/style/color_tokens/divider_tokens.dart';
 import 'package:qui_flutter/style/color_tokens/state_overlay.dart';
 import 'package:qui_flutter/style/color_tokens/switch/switch_tokens.dart';
 import 'package:qui_flutter/style/color_tokens/switch/toggle/toggle_token.dart';
@@ -21,6 +22,10 @@ class QuiColorTokens {
       );
 
   SwitchTokens get switchTokens => SwitchTokens(
+        cp: _cp,
+      );
+
+  DividerTokens get dividerTokens => DividerTokens(
         cp: _cp,
       );
 

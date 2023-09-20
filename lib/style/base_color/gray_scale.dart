@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:qui_flutter/style/base_color/base_color.dart';
 
 ///
-/// Grascale Color
+/// Graycale Color
 ///
 class GrayScale extends BaseColor {
   GrayScale({
