@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:qui_flutter/core/theme_preferences.dart';
-import 'package:qui_flutter/style/color_pallete.dart';
+import 'package:qui_flutter/style/color_palette.dart';
 import 'package:qui_flutter/style/color_tokens/color_tokens.dart';
 
 mixin QuiThemeManager {
   late final ValueNotifier<ThemeMode> _themeMode;
-  late QuiColorPallete _colorPalette;
+  late QuiColorPalette _colorPalette;
   ValueNotifier<ThemeMode> get themeMode => _themeMode;
-  QuiColorPallete get colorPalette => _colorPalette;
+  QuiColorPalette get colorPalette => _colorPalette;
   QuiColorTokens get colorTokens => QuiColorTokens(
         isDark: isDark(),
         cp: _colorPalette,
@@ -21,10 +21,10 @@ mixin QuiThemeManager {
 
   void initTheme({
     required ThemeMode themeMode,
-    QuiColorPallete? colorPalette,
+    QuiColorPalette? colorPalette,
   }) {
-    _colorPalette = colorPalette ?? QuiColorPallete();
-    _selectColorPallete(themeMode);
+    _colorPalette = colorPalette ?? QuiColorPalette();
+    _selectColorPalette(themeMode);
     _themeMode = ValueNotifier(themeMode);
   }
 
@@ -37,7 +37,7 @@ mixin QuiThemeManager {
   ///
   void setDarkTheme() {
     const mode = ThemeMode.dark;
-    _selectColorPallete(mode);
+    _selectColorPalette(mode);
     _themeMode.value = mode;
     store.setThemeMode(mode);
   }
@@ -47,7 +47,7 @@ mixin QuiThemeManager {
   ///
   void setLightTheme() {
     const mode = ThemeMode.light;
-    _selectColorPallete(mode);
+    _selectColorPalette(mode);
     _themeMode.value = mode;
     store.setThemeMode(mode);
   }
@@ -57,16 +57,16 @@ mixin QuiThemeManager {
   ///
   void setSystemTheme() {
     const mode = ThemeMode.system;
-    _selectColorPallete(mode);
+    _selectColorPalette(mode);
     _themeMode.value = mode;
     store.setThemeMode(mode);
   }
 
   ///
-  /// Choose color pallete by theme mode.
-  /// [Ligtht] or [Dark] or [UserCustom]
+  /// Choose color palette by theme mode.
+  /// [Light] or [Dark] or [UserCustom]
   ///
-  void _selectColorPallete(ThemeMode mode) {
+  void _selectColorPalette(ThemeMode mode) {
     // if (isUseCustomColorPalette) return;
 
     // switch (mode) {
@@ -94,7 +94,7 @@ mixin QuiThemeManager {
     final nextModeIndex =
         (_themeMode.value.index + 1) % ThemeMode.values.length;
     final mode = ThemeMode.values[nextModeIndex];
-    _selectColorPallete(mode);
+    _selectColorPalette(mode);
     _themeMode.value = mode;
     store.setThemeMode(_themeMode.value);
   }

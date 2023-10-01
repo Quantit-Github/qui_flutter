@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:qui_flutter/style/color_pallete.dart';
+import 'package:qui_flutter/style/color_palette.dart';
 
 class DividerTokens {
-  final QuiColorPallete cp;
+  final QuiColorPalette cp;
   final Color darken;
   final Color lighten;
 

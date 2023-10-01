@@ -1,4 +1,4 @@
-import 'package:qui_flutter/style/color_pallete.dart';
+import 'package:qui_flutter/style/color_palette.dart';
 import 'package:flutter/material.dart';
 
 ///
@@ -17,14 +17,14 @@ class StateOverlay {
     required this.focused,
   });
 
-  factory StateOverlay.light(QuiColorPallete p) => StateOverlay(
+  factory StateOverlay.light(QuiColorPalette p) => StateOverlay(
         common: p.blackColor.s0,
         hover: p.blackColor.s0,
         pressed: p.blackColor.s20,
         focused: p.primary.s30,
       );
 
-  factory StateOverlay.dark(QuiColorPallete p) => StateOverlay(
+  factory StateOverlay.dark(QuiColorPalette p) => StateOverlay(
         common: p.whiteColor.s0,
         hover: p.whiteColor.s0,
         pressed: p.whiteColor.s20,

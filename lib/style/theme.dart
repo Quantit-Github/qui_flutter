@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:qui_flutter/style/color_pallete.dart';
+import 'package:qui_flutter/style/color_palette.dart';
 
 const fontFamily = "Pretendard";
 
 class QuiColorTheme {
-  final QuiColorPallete colorPalette;
+  final QuiColorPalette colorPalette;
 
   QuiColorTheme({required this.colorPalette});
 
@@ -20,22 +20,6 @@ class QuiColorTheme {
         focusColor: colorPalette.primary.s30,
         highlightColor: colorPalette.blackColor.s20,
         shadowColor: Colors.transparent,
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
-            elevation: 0,
-            backgroundColor: colorPalette.primary.s50,
-            disabledForegroundColor: colorPalette.grayScale.s50,
-            disabledBackgroundColor: colorPalette.blackColor.s20,
-            splashFactory: NoSplash.splashFactory,
-            shadowColor: Colors.transparent,
-          ),
-        ),
-        floatingActionButtonTheme: FloatingActionButtonThemeData(
-          splashColor: Colors.transparent,
-          elevation: 0,
-          foregroundColor: colorPalette.grayScale.s0,
-          backgroundColor: colorPalette.primary.s50,
-        ),
       );
 
   ThemeData get dark => ThemeData(
@@ -48,20 +32,6 @@ class QuiColorTheme {
         focusColor: colorPalette.primary.s30,
         highlightColor: colorPalette.whiteColor.s20,
         shadowColor: Colors.transparent,
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: colorPalette.primary.s40,
-            disabledForegroundColor: colorPalette.grayScale.s95,
-            disabledBackgroundColor: colorPalette.whiteColor.s20,
-            splashFactory: NoSplash.splashFactory,
-            shadowColor: Colors.transparent,
-          ),
-        ),
-        floatingActionButtonTheme: FloatingActionButtonThemeData(
-          splashColor: Colors.transparent,
-          foregroundColor: colorPalette.grayScale.s0,
-          backgroundColor: colorPalette.primary.s50,
-        ),
       );
 }
 

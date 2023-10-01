@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:qui_flutter/style/color_pallete.dart';
+import 'package:qui_flutter/style/color_palette.dart';
 
 ///
 /// Button/Active/Primary
@@ -13,12 +13,12 @@ class ButtonActivePrimary {
     required this.container,
   });
 
-  factory ButtonActivePrimary.light(QuiColorPallete p) => ButtonActivePrimary(
+  factory ButtonActivePrimary.light(QuiColorPalette p) => ButtonActivePrimary(
         elements: p.grayScale.s0,
         container: p.primary.s50,
       );
 
-  factory ButtonActivePrimary.dark(QuiColorPallete p) => ButtonActivePrimary(
+  factory ButtonActivePrimary.dark(QuiColorPalette p) => ButtonActivePrimary(
         elements: p.grayScale.s0,
         container: p.primary.s40,
       );
@@ -36,13 +36,13 @@ class ButtonActiveSecondary {
     required this.container,
   });
 
-  factory ButtonActiveSecondary.light(QuiColorPallete p) =>
+  factory ButtonActiveSecondary.light(QuiColorPalette p) =>
       ButtonActiveSecondary(
         elements: p.primary.s99,
         container: p.primary.s10,
       );
 
-  factory ButtonActiveSecondary.dark(QuiColorPallete p) =>
+  factory ButtonActiveSecondary.dark(QuiColorPalette p) =>
       ButtonActiveSecondary(
         elements: p.primary.s20,
         container: p.primary.s99,
@@ -59,11 +59,11 @@ class ButtonActiveGhost {
     required this.elements,
   });
 
-  factory ButtonActiveGhost.light(QuiColorPallete p) => ButtonActiveGhost(
+  factory ButtonActiveGhost.light(QuiColorPalette p) => ButtonActiveGhost(
         elements: p.grayScale.s100,
       );
 
-  factory ButtonActiveGhost.dark(QuiColorPallete p) => ButtonActiveGhost(
+  factory ButtonActiveGhost.dark(QuiColorPalette p) => ButtonActiveGhost(
         elements: p.grayScale.s0,
       );
 }
@@ -80,12 +80,12 @@ class ButtonActiveOutline {
     required this.outline,
   });
 
-  factory ButtonActiveOutline.light(QuiColorPallete p) => ButtonActiveOutline(
+  factory ButtonActiveOutline.light(QuiColorPalette p) => ButtonActiveOutline(
         elements: p.grayScale.s100,
         outline: p.blackColor.s20,
       );
 
-  factory ButtonActiveOutline.dark(QuiColorPallete p) => ButtonActiveOutline(
+  factory ButtonActiveOutline.dark(QuiColorPalette p) => ButtonActiveOutline(
         elements: p.grayScale.s0,
         outline: p.whiteColor.s70,
       );

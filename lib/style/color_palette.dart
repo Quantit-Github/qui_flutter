@@ -4,14 +4,14 @@ import 'package:qui_flutter/style/base_color/primary_color.dart';
 import 'package:qui_flutter/style/base_color/semantic_color.dart';
 import 'package:qui_flutter/style/base_color/white_color.dart';
 
-class QuiColorPallete {
+class QuiColorPalette {
   final PrimaryColor primary;
   final GrayScale grayScale;
   final WhiteColor whiteColor;
   final BlackColor blackColor;
   final SemanticColor semanticColor;
 
-  QuiColorPallete({
+  QuiColorPalette({
     PrimaryColor? primary,
     GrayScale? grayScale,
     WhiteColor? whiteColor,
@@ -23,14 +23,14 @@ class QuiColorPallete {
         blackColor = blackColor ?? BlackColor(),
         semanticColor = semanticColor ?? SemanticColor();
 
-  QuiColorPallete copyWith({
+  QuiColorPalette copyWith({
     PrimaryColor? primary,
     GrayScale? grayScale,
     WhiteColor? whiteColor,
     BlackColor? blackColor,
     SemanticColor? semanticColor,
   }) {
-    return QuiColorPallete(
+    return QuiColorPalette(
       primary: primary ?? this.primary,
       grayScale: grayScale ?? this.grayScale,
       whiteColor: whiteColor ?? this.whiteColor,

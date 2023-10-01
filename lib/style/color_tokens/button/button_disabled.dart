@@ -1,4 +1,4 @@
-import 'package:qui_flutter/style/color_pallete.dart';
+import 'package:qui_flutter/style/color_palette.dart';
 import 'package:flutter/material.dart';
 
 ///
@@ -13,12 +13,12 @@ class ButtonActiveDisabled {
     required this.container,
   });
 
-  factory ButtonActiveDisabled.light(QuiColorPallete p) => ButtonActiveDisabled(
+  factory ButtonActiveDisabled.light(QuiColorPalette p) => ButtonActiveDisabled(
         elements: p.grayScale.s50,
         container: p.blackColor.s20,
       );
 
-  factory ButtonActiveDisabled.dark(QuiColorPallete p) => ButtonActiveDisabled(
+  factory ButtonActiveDisabled.dark(QuiColorPalette p) => ButtonActiveDisabled(
         elements: p.grayScale.s95,
         container: p.whiteColor.s20,
       );

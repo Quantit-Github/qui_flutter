@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:qui_flutter/style/color_pallete.dart';
+import 'package:qui_flutter/style/color_palette.dart';
 
 ///
 /// (Switch common token)
@@ -11,7 +11,7 @@ class SwitchDisabled {
   final Color icon;
   final Color label;
   final Color outline;
-  final QuiColorPallete colorPallete;
+  final QuiColorPalette colorPallete;
 
   SwitchDisabled({
     required this.colorPallete,

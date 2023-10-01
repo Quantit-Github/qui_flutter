@@ -1,4 +1,4 @@
-import 'package:qui_flutter/style/color_pallete.dart';
+import 'package:qui_flutter/style/color_palette.dart';
 import 'package:qui_flutter/style/color_tokens/button/button_token.dart';
 import 'package:qui_flutter/style/color_tokens/divider_tokens.dart';
 import 'package:qui_flutter/style/color_tokens/state_overlay.dart';
@@ -6,7 +6,7 @@ import 'package:qui_flutter/style/color_tokens/switch/switch_tokens.dart';
 import 'package:qui_flutter/style/color_tokens/switch/toggle/toggle_token.dart';
 
 class QuiColorTokens {
-  final QuiColorPallete _cp;
+  final QuiColorPalette _cp;
   final bool _isDark;
 
   StateOverlay get stateOverlay =>
@@ -31,7 +31,7 @@ class QuiColorTokens {
 
   QuiColorTokens({
     required bool isDark,
-    required QuiColorPallete cp,
+    required QuiColorPalette cp,
   })  : _isDark = isDark,
         _cp = cp;
 }

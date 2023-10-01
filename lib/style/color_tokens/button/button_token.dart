@@ -1,4 +1,4 @@
-import 'package:qui_flutter/style/color_pallete.dart';
+import 'package:qui_flutter/style/color_palette.dart';
 import 'package:qui_flutter/style/color_tokens/button/button_token_active.dart';
 import 'package:qui_flutter/style/color_tokens/button/button_disabled.dart';
 
@@ -6,7 +6,7 @@ import 'package:qui_flutter/style/color_tokens/button/button_disabled.dart';
 /// Button Colors Area
 ///
 class ButtonTokens {
-  final QuiColorPallete _cp;
+  final QuiColorPalette _cp;
   final bool _isDark;
 
   ButtonActivePrimary get activePrimary =>
@@ -25,7 +25,7 @@ class ButtonTokens {
 
   ButtonTokens({
     required bool isDark,
-    required QuiColorPallete cp,
+    required QuiColorPalette cp,
   })  : _isDark = isDark,
         _cp = cp;
 }

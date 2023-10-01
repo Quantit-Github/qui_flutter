@@ -2,11 +2,17 @@ import 'package:example/pages/toggle/toggle_page.dart';
 import 'package:flutter/material.dart';
 import 'package:qui_flutter/core/qui_theme.dart';
 import 'package:qui_flutter/style/base_color/primary_color.dart';
-import 'package:qui_flutter/style/color_pallete.dart';
+import 'package:qui_flutter/style/color_palette.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  ///
+  /// CHECK: QUI theme를 현새 Preference에 저장된 값에서 불러오는것을 [QuiTheme]에서 위젯에서 가져오고 있음.
+  /// 이런 방식을 줘야 하는것인가?
+  /// 실제 기기의 light, dark 관련 설정은 일반적으로 initialize 함수에서 기본적으로 매핑하게 설정 하는것이 맞아 보임.
+  /// 따라서, initial 관련 함수를 추가해서 해당 themeMode로 Preference에 저장하는식으로 구성 해야 하지 않을까? 하는 의견이 있습니다.
+  ///
   final savedThemeMode = await QuiTheme.getThemeMode();
   runApp(MyApp(themeMode: savedThemeMode));
 }
@@ -24,7 +30,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return QuiTheme(
       initThemeMode: themeMode,
-      colorPalette: QuiColorPallete().copyWith(
+      colorPalette: QuiColorPalette().copyWith(
         primary: PrimaryColor().copyWith(
           s50: Colors.blue,
           s40: Colors.red,
@@ -62,9 +68,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  void _incrementCounter(BuildContext context) {
-    QuiTheme.of(context).toggleThemeMode();
-  }
+  void _toggleTheme(BuildContext context) =>
+      QuiTheme.of(context).toggleThemeMode();
 
   @override
   Widget build(BuildContext context) {
@@ -78,6 +83,11 @@ class _MyHomePageState extends State<MyHomePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor:
+                      QuiTheme.of(context).colorPalette.grayScale.s30,
+                  textStyle: QuiTheme.textTheme(context).titleSmall,
+                ),
                 onPressed: () => Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -86,112 +96,23 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 child: const Text("ToggleButton"),
               ),
-
-              // const Text("StateOverlay :: Common / Hover / Pressed / Focused"),
-              // Row(
-              //   children: [
-              //     Container(
-              //       width: 50,
-              //       height: 50,
-              //       color: QuiTheme.of(context).colorPalette.primary.s100,
-              //     ),
-              //     Container(
-              //       width: 50,
-              //       height: 50,
-              //       color: QuiTheme.of(context).darkColorPalette.primary.s100,
-              //     ),
-              //     Container(
-              //       width: 50,
-              //       height: 50,
-              //       color: QuiTheme.of(context).lightColorPalette.primary.s100,
-              //     ),
-              //   ],
-              // ),
-              // const Text("Buttons"),
-              // ElevatedButton(
-              //   onPressed: () {},
-              //   style: ElevatedButton.styleFrom(
-              //     backgroundColor: QuiTheme.of(context)
-              //         .colorTokens
-              //         .buttonTokens
-              //         .activePrimary
-              //         .container,
-              //   ),
-              //   child: Text(
-              //     "BTN/Active/Primary",
-              //     style: TextStyle(
-              //       color: QuiTheme.of(context)
-              //           .colorTokens
-              //           .buttonTokens
-              //           .activePrimary
-              //           .elements,
-              //     ),
-              //   ),
-              // ),
-              // ElevatedButton(
-              //   onPressed: () {},
-              //   style: ElevatedButton.styleFrom(
-              //     backgroundColor: QuiTheme.of(context)
-              //         .colorTokens
-              //         .buttonTokens
-              //         .activeSecondary
-              //         .container,
-              //   ),
-              //   child: Text(
-              //     "BTN/Active/Secondary",
-              //     style: TextStyle(
-              //       color: QuiTheme.of(context)
-              //           .colorTokens
-              //           .buttonTokens
-              //           .activeSecondary
-              //           .elements,
-              //     ),
-              //   ),
-              // ),
-              // Container(
-              //   width: 100,
-              //   height: 100,
-              //   alignment: Alignment.center,
-              //   color: QuiTheme.of(context)
-              //       .colorTokens
-              //       .buttonTokens
-              //       .activeGhost
-              //       .elements,
-              //   child: const Text(
-              //     "Button/Active/Ghost",
-              //     textAlign: TextAlign.center,
-              //     style: TextStyle(color: Colors.amber),
-              //   ),
-              // ),
-              // ElevatedButton(
-              //   onPressed: null,
-              //   style: ElevatedButton.styleFrom(
-              //     backgroundColor: QuiTheme.of(context)
-              //         .colorTokens
-              //         .buttonTokens
-              //         .activeDisabled
-              //         .container,
-              //   ),
-              //   child: Text(
-              //     "Button/Disabled",
-              //     textAlign: TextAlign.center,
-              //     style: TextStyle(
-              //       color: QuiTheme.of(context)
-              //           .colorTokens
-              //           .buttonTokens
-              //           .activeDisabled
-              //           .elements,
-              //     ),
-              //   ),
-              // ),
             ],
           ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => _incrementCounter(context),
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+        onPressed: () => _toggleTheme(context),
+        child: Builder(builder: (context) {
+          final themeMode = QuiTheme.of(context).themeMode;
+          if (themeMode.value == ThemeMode.light) {
+            return const Icon(Icons.light_mode);
+          } else if (themeMode.value == ThemeMode.dark) {
+            return const Icon(Icons.dark_mode);
+          } else {
+            return const Icon(Icons.settings_brightness);
+          }
+        }), // This trailing comma makes auto-formatting nicer for build methods.
+      ),
     );
   }
 }

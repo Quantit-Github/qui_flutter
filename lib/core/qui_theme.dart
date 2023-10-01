@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:qui_flutter/core/theme_manager.dart';
 import 'package:qui_flutter/core/theme_preferences.dart';
-import 'package:qui_flutter/style/color_pallete.dart';
+import 'package:qui_flutter/style/color_palette.dart';
 import 'package:qui_flutter/style/theme.dart';
 
 ///
@@ -29,7 +29,7 @@ class QuiTheme extends StatefulWidget {
   /// [darkTheme] define.
   final ThemeData? darkTheme;
 
-  final QuiColorPallete? colorPalette;
+  final QuiColorPalette? colorPalette;
 
   const QuiTheme({
     this.initThemeMode = ThemeMode.system,
@@ -45,6 +45,10 @@ class QuiTheme extends StatefulWidget {
     return context
         .dependOnInheritedWidgetOfExactType<InheritedCustomTheme>()!
         .themeManager;
+  }
+
+  static TextTheme textTheme(BuildContext context) {
+    return Theme.of(context).textTheme;
   }
 
   /// [getThemeMode] function define.
@@ -70,19 +74,20 @@ class _QuiThemeState extends State<QuiTheme> with QuiThemeManager {
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder<ThemeMode>(
-        valueListenable: themeMode,
-        builder: (context, value, _) {
-          final theme = QuiColorTheme(colorPalette: colorPalette);
-          return InheritedCustomTheme(
-            themeManager: this,
-            themeMode: value,
-            child: widget.builder(
-              theme.light,
-              theme.dark,
-              value,
-            ),
-          );
-        });
+      valueListenable: themeMode,
+      builder: (context, value, _) {
+        final theme = QuiColorTheme(colorPalette: colorPalette);
+        return InheritedCustomTheme(
+          themeManager: this,
+          themeMode: value,
+          child: widget.builder(
+            theme.light,
+            theme.dark,
+            value,
+          ),
+        );
+      },
+    );
   }
 }
 
