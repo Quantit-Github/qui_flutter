@@ -1,117 +1,146 @@
 import 'package:flutter/material.dart';
-import 'package:qui_flutter/style/color_palette.dart';
+import 'package:qui_flutter/style/color.dart';
+import 'package:qui_flutter/style/palette.dart';
 
-const fontFamily = "Pretendard";
+class $QuiTheme {
+  $QuiTheme({QuiPalette? palette}) : _palette = palette ?? QuiPalette();
 
-class QuiColorTheme {
-  final QuiColorPalette colorPalette;
+  final QuiPalette _palette;
+  QuiPalette get palette => _palette;
+  QuiColorPalette operator [](ThemeMode mode) => _palette[mode];
 
-  QuiColorTheme({required this.colorPalette});
+  ThemeData get lightThemeData => getThemeData(ThemeMode.light);
+  ThemeData get darkThemeData => getThemeData(ThemeMode.dark);
 
-  /// 기본 Light 테마값
-  /// 앱 전반에 적용 되는 값.
-  /// 각 컴포넌트에 맞는 색상을 직접 컴포넌트에서 지정해야함.
-  ThemeData get light => ThemeData(
-        useMaterial3: true,
-        brightness: Brightness.light,
-        splashColor: Colors.transparent,
-        fontFamily: fontFamily,
-        textTheme: CustomTextTheme.textTheme,
-        focusColor: colorPalette.primary.s30,
-        highlightColor: colorPalette.blackColor.s20,
-        shadowColor: Colors.transparent,
-      );
+  ThemeData getThemeData(ThemeMode mode) {
+    final QuiColorPalette colorPalette = _palette[mode];
+    final QuiTextTheme textTheme =
+        QuiTextTheme(color: colorPalette.blackColor.s0);
 
-  ThemeData get dark => ThemeData(
-        useMaterial3: true,
-        brightness: Brightness.light,
-        primaryColor: colorPalette.primary.s50,
-        splashColor: Colors.transparent,
-        fontFamily: fontFamily,
-        textTheme: CustomTextTheme.textTheme,
-        focusColor: colorPalette.primary.s30,
-        highlightColor: colorPalette.whiteColor.s20,
-        shadowColor: Colors.transparent,
-      );
+    // TODO: Add more theme data
+    return ThemeData(
+      useMaterial3: true,
+      brightness: Brightness.light,
+      primaryColor: colorPalette.primary.s50,
+      splashColor: Colors.transparent,
+      fontFamily: "Pretendard",
+      textTheme: textTheme,
+      focusColor: colorPalette.primary.s30,
+      highlightColor: colorPalette.whiteColor.s20,
+      shadowColor: Colors.transparent,
+      scaffoldBackgroundColor: colorPalette.whiteColor.s0,
+      appBarTheme: AppBarTheme(
+        backgroundColor: colorPalette.whiteColor.s0,
+        foregroundColor: colorPalette.blackColor.s0,
+        elevation: 0,
+        centerTitle: true,
+        titleTextStyle: textTheme.headlineMedium,
+        iconTheme: IconThemeData(
+          color: colorPalette.blackColor.s0,
+        ),
+      ),
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        backgroundColor: colorPalette.primary.s90,
+        foregroundColor: colorPalette.blackColor.s0,
+      ),
+    );
+  }
 }
 
-class CustomThemeData {
-  static ThemeData get light => ThemeData(
-        brightness: Brightness.light,
-        primaryColor: Colors.white,
-        splashColor: Colors.transparent,
-        fontFamily: fontFamily,
-        textTheme: CustomTextTheme.textTheme,
-      );
-
-  static ThemeData get dark => ThemeData(
-        brightness: Brightness.dark,
-        primaryColor: Colors.black,
-        splashColor: Colors.transparent,
-        fontFamily: fontFamily,
-        textTheme: CustomTextTheme.textTheme,
-      );
-}
-
-class CustomTextTheme {
-  static get textTheme => const TextTheme(
-        displayLarge: TextStyle(
-          fontSize: 56,
-          height: 64 / 56,
-        ),
-        displayMedium: TextStyle(
-          fontSize: 44,
-          height: 52 / 44,
-        ),
-        displaySmall: TextStyle(
-          fontSize: 36,
-          height: 44 / 36,
-        ),
-        headlineLarge: TextStyle(
-          fontSize: 32,
-          height: 40 / 32,
-        ),
-        headlineMedium: TextStyle(
-          fontSize: 28,
-          height: 36 / 28,
-        ),
-        headlineSmall: TextStyle(
-          fontSize: 24,
-          height: 32 / 24,
-        ),
-        titleLarge: TextStyle(
-          fontSize: 22,
-          height: 28 / 22,
-        ),
-        titleMedium: TextStyle(
-          fontSize: 18,
-          height: 24 / 18,
-        ),
-        bodyLarge: TextStyle(
-          fontSize: 16,
-          height: 24 / 16,
-        ),
-        bodyMedium: TextStyle(
-          fontSize: 14,
-          height: 20 / 14,
-        ),
-        bodySmall: TextStyle(
-          fontSize: 12,
-          height: 16 / 12,
-        ),
-        labelLarge: TextStyle(
-          fontSize: 14,
-          height: 20 / 14,
-        ),
-        labelMedium: TextStyle(
-          fontSize: 12,
-          height: 16 / 12,
-        ),
-        labelSmall: TextStyle(
-          fontSize: 10,
-          height: 14 / 10,
-        ),
-      );
+class QuiTextTheme extends TextTheme {
+  QuiTextTheme({required Color color})
+      : super(
+          displayLarge: TextStyle(
+            fontSize: 56,
+            height: 64 / 56,
+            color: color,
+            fontWeight: FontWeight.w400,
+          ),
+          displayMedium: TextStyle(
+            fontSize: 44,
+            height: 52 / 44,
+            color: color,
+            fontWeight: FontWeight.w400,
+          ),
+          displaySmall: TextStyle(
+            fontSize: 36,
+            height: 44 / 36,
+            color: color,
+            fontWeight: FontWeight.w400,
+          ),
+          headlineLarge: TextStyle(
+            fontSize: 32,
+            height: 40 / 32,
+            color: color,
+            fontWeight: FontWeight.w400,
+          ),
+          headlineMedium: TextStyle(
+            fontSize: 28,
+            height: 36 / 28,
+            color: color,
+            fontWeight: FontWeight.w400,
+          ),
+          headlineSmall: TextStyle(
+            fontSize: 24,
+            height: 32 / 24,
+            color: color,
+            fontWeight: FontWeight.w400,
+          ),
+          titleLarge: TextStyle(
+            fontSize: 22,
+            height: 28 / 22,
+            color: color,
+            fontWeight: FontWeight.w400,
+          ),
+          titleMedium: TextStyle(
+            fontSize: 20,
+            height: 26 / 20,
+            color: color,
+            fontWeight: FontWeight.w400,
+          ),
+          titleSmall: TextStyle(
+            fontSize: 18,
+            height: 24 / 18,
+            color: color,
+            fontWeight: FontWeight.w400,
+          ),
+          bodyLarge: TextStyle(
+            fontSize: 16,
+            height: 24 / 16,
+            color: color,
+            fontWeight: FontWeight.w400,
+          ),
+          bodyMedium: TextStyle(
+            fontSize: 14,
+            height: 20 / 14,
+            color: color,
+            fontWeight: FontWeight.w400,
+          ),
+          bodySmall: TextStyle(
+            fontSize: 12,
+            height: 16 / 12,
+            color: color,
+            fontWeight: FontWeight.w400,
+          ),
+          labelLarge: TextStyle(
+            fontSize: 14,
+            height: 20 / 14,
+            color: color,
+            fontWeight: FontWeight.w400,
+          ),
+          labelMedium: TextStyle(
+            fontSize: 12,
+            height: 16 / 12,
+            color: color,
+            fontWeight: FontWeight.w400,
+          ),
+          labelSmall: TextStyle(
+            fontSize: 10,
+            height: 14 / 10,
+            color: color,
+            fontWeight: FontWeight.w400,
+          ),
+        );
 }
 
 extension TextThemeExtension on TextTheme {

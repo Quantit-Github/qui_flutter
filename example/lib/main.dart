@@ -1,43 +1,39 @@
 import 'package:example/pages/toggle/toggle_page.dart';
 import 'package:flutter/material.dart';
 import 'package:qui_flutter/core/qui_theme.dart';
-import 'package:qui_flutter/style/base_color/primary_color.dart';
-import 'package:qui_flutter/style/color_palette.dart';
+import 'package:qui_flutter/style/color.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  ///
-  /// CHECK: QUI theme를 현새 Preference에 저장된 값에서 불러오는것을 [QuiTheme]에서 위젯에서 가져오고 있음.
-  /// 이런 방식을 줘야 하는것인가?
-  /// 실제 기기의 light, dark 관련 설정은 일반적으로 initialize 함수에서 기본적으로 매핑하게 설정 하는것이 맞아 보임.
-  /// 따라서, initial 관련 함수를 추가해서 해당 themeMode로 Preference에 저장하는식으로 구성 해야 하지 않을까? 하는 의견이 있습니다.
-  ///
-  final savedThemeMode = await QuiTheme.getThemeMode();
-  runApp(MyApp(themeMode: savedThemeMode));
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({
-    required this.themeMode,
     super.key,
   });
-
-  final ThemeMode themeMode;
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return QuiTheme(
-      initThemeMode: themeMode,
-      colorPalette: QuiColorPalette().copyWith(
-        primary: PrimaryColor().copyWith(
-          s50: Colors.blue,
-          s40: Colors.red,
-          s30: Colors.green,
-          s99: Colors.orange,
-        ),
-      ),
+      initialThemeMode: ThemeMode.system,
+      // light: LightColorPalette().copyWith(
+      //   primary: LightPrimary().copyWith(
+      //     s50: Colors.blue,
+      //     s40: Colors.red,
+      //     s30: Colors.green,
+      //     s99: Colors.orange,
+      //   ),
+      // ),
+      // dark: DarkColorPalette().copyWith(
+      //   primary: DarkPrimary().copyWith(
+      //     s50: Colors.red,
+      //     s40: Colors.red,
+      //     s30: Colors.orange,
+      //     s99: Colors.green,
+      //   ),
+      // ),
       builder: (light, dark, mode) => MaterialApp(
         theme: light,
         darkTheme: dark,
@@ -68,14 +64,13 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  void _toggleTheme(BuildContext context) =>
-      QuiTheme.of(context).toggleThemeMode();
-
   @override
   Widget build(BuildContext context) {
+    TextStyle? buttonTextStyle = QuiTheme.getTextTheme(context).titleSmall;
+
     return Scaffold(
       appBar: AppBar(
-        title: Text(QuiTheme.of(context).getThemeMode()),
+        title: Text(QuiTheme.getThemeMode(context).toString()),
       ),
       body: SingleChildScrollView(
         child: Center(
@@ -84,9 +79,7 @@ class _MyHomePageState extends State<MyHomePage> {
             children: <Widget>[
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor:
-                      QuiTheme.of(context).colorPalette.grayScale.s30,
-                  textStyle: QuiTheme.textTheme(context).titleSmall,
+                  backgroundColor: QuiTheme.of(context).palette.primary.s80,
                 ),
                 onPressed: () => Navigator.push(
                   context,
@@ -94,14 +87,17 @@ class _MyHomePageState extends State<MyHomePage> {
                     builder: (context) => const TogglePage(),
                   ),
                 ),
-                child: const Text("ToggleButton"),
+                child: Text(
+                  "ToggleButton",
+                  style: buttonTextStyle,
+                ),
               ),
             ],
           ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => _toggleTheme(context),
+        onPressed: () => QuiTheme.of(context).toggleThemeMode(),
         child: Builder(builder: (context) {
           final themeMode = QuiTheme.of(context).themeMode;
           if (themeMode.value == ThemeMode.light) {

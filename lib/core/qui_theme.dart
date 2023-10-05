@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:qui_flutter/core/theme_manager.dart';
-import 'package:qui_flutter/core/theme_preferences.dart';
-import 'package:qui_flutter/style/color_palette.dart';
-import 'package:qui_flutter/style/theme.dart';
+import 'package:qui_flutter/style/color.dart';
 
 ///
 /// Material App builder with custom theme.
@@ -18,26 +16,23 @@ typedef ThemeBuilder = Widget Function(
 ///
 class QuiTheme extends StatefulWidget {
   /// Default value [ThemeMode.system]
-  final ThemeMode initThemeMode;
+  final ThemeMode initialThemeMode;
 
   /// [builder] function define.
   final ThemeBuilder builder;
 
-  /// [lightTheme] define.
-  final ThemeData? lightTheme;
+  /// [light] define.
+  final QuiColorPalette? light;
 
-  /// [darkTheme] define.
-  final ThemeData? darkTheme;
-
-  final QuiColorPalette? colorPalette;
+  /// [dark] define.
+  final QuiColorPalette? dark;
 
   const QuiTheme({
-    this.initThemeMode = ThemeMode.system,
-    required this.builder,
-    this.darkTheme,
-    this.lightTheme,
-    this.colorPalette,
     super.key,
+    this.initialThemeMode = ThemeMode.system,
+    this.light,
+    this.dark,
+    required this.builder,
   });
 
   /// [of] function define.
@@ -47,15 +42,13 @@ class QuiTheme extends StatefulWidget {
         .themeManager;
   }
 
-  static TextTheme textTheme(BuildContext context) {
-    return Theme.of(context).textTheme;
-  }
-
   /// [getThemeMode] function define.
   /// return of [ThemeMode] from shared preferences .
-  static Future<ThemeMode> getThemeMode() async {
-    return await QuiThemePreferences().getThemeMode();
-  }
+  static ThemeMode getThemeMode(BuildContext context) =>
+      of(context).themeMode.value;
+  static ThemeData getThemeData(BuildContext context) => Theme.of(context);
+  static TextTheme getTextTheme(BuildContext context) =>
+      Theme.of(context).textTheme;
 
   @override
   State<QuiTheme> createState() => _QuiThemeState();
@@ -65,8 +58,9 @@ class _QuiThemeState extends State<QuiTheme> with QuiThemeManager {
   @override
   void initState() {
     initTheme(
-      themeMode: widget.initThemeMode,
-      colorPalette: widget.colorPalette,
+      themeMode: widget.initialThemeMode,
+      light: widget.light,
+      dark: widget.dark,
     );
     super.initState();
   }
@@ -76,13 +70,12 @@ class _QuiThemeState extends State<QuiTheme> with QuiThemeManager {
     return ValueListenableBuilder<ThemeMode>(
       valueListenable: themeMode,
       builder: (context, value, _) {
-        final theme = QuiColorTheme(colorPalette: colorPalette);
         return InheritedCustomTheme(
           themeManager: this,
           themeMode: value,
           child: widget.builder(
-            theme.light,
-            theme.dark,
+            theme.lightThemeData,
+            theme.darkThemeData,
             value,
           ),
         );

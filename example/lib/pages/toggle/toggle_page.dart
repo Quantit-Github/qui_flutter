@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:qui_flutter/components/toggle/toggle.dart';
 import 'package:qui_flutter/style/theme.dart';
 
 class TogglePage extends StatelessWidget {
@@ -18,24 +17,24 @@ class TogglePage extends StatelessWidget {
               "Toggle Component",
               style: Theme.of(context).textTheme.headlineLargeBold,
             ),
-            QuiToggle(
-              flag: false,
-              onChanged: (flag) {},
-            ),
-            QuiToggle(
-              flag: true,
-              onChanged: (flag) {},
-            ),
-            QuiToggle(
-              flag: true,
-              disabled: true,
-              onChanged: (flag) {},
-            ),
-            QuiToggle(
-              flag: false,
-              disabled: true,
-              onChanged: (flag) {},
-            ),
+            // QuiToggle(
+            //   flag: false,
+            //   onChanged: (flag) {},
+            // ),
+            // QuiToggle(
+            //   flag: true,
+            //   onChanged: (flag) {},
+            // ),
+            // QuiToggle(
+            //   flag: true,
+            //   disabled: true,
+            //   onChanged: (flag) {},
+            // ),
+            // QuiToggle(
+            //   flag: false,
+            //   disabled: true,
+            //   onChanged: (flag) {},
+            // ),
           ],
         ),
       ),
