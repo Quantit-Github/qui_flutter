@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:qui_flutter/style/theme.dart';
+import 'package:qui_flutter/core/qui_theme.dart';
+import 'package:qui_flutter/style/typography.dart';
 
 class TogglePage extends StatelessWidget {
   const TogglePage({super.key});
@@ -15,7 +16,7 @@ class TogglePage extends StatelessWidget {
           children: [
             Text(
               "Toggle Component",
-              style: Theme.of(context).textTheme.headlineLargeBold,
+              style: QuiTheme.textTheme(context).headlineLarge.bold,
             ),
             // QuiToggle(
             //   flag: false,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:qui_flutter/core/theme_manager.dart';
 import 'package:qui_flutter/style/color.dart';
+import 'package:qui_flutter/style/typography.dart';
 
 ///
 /// Material App builder with custom theme.
@@ -47,8 +48,8 @@ class QuiTheme extends StatefulWidget {
   static ThemeMode getThemeMode(BuildContext context) =>
       of(context).themeMode.value;
   static ThemeData getThemeData(BuildContext context) => Theme.of(context);
-  static TextTheme getTextTheme(BuildContext context) =>
-      Theme.of(context).textTheme;
+  static QuiTextTheme textTheme(BuildContext context) =>
+      of(context).getTextTheme;
 
   @override
   State<QuiTheme> createState() => _QuiThemeState();

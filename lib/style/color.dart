@@ -152,31 +152,53 @@ extension SemanticColorCopyWith on SemanticColor {
 }
 
 class QuiColorPalette {
-  final ColorRange primary;
-  final ColorRange grayScale;
-  final ColorRange blackColor;
-  final ColorRange whiteColor;
-  final SemanticColor semanticColor;
-
   QuiColorPalette({
     required this.primary,
     required this.grayScale,
     required this.blackColor,
     required this.whiteColor,
     required this.semanticColor,
-  });
+    Map<String, ColorRange>? extention,
+  }) : extention = extention ?? {};
 
-  factory QuiColorPalette.light() => LightColorPalette();
-  factory QuiColorPalette.dark() => DarkColorPalette();
-}
+  final ColorRange primary;
+  final ColorRange grayScale;
+  final ColorRange blackColor;
+  final ColorRange whiteColor;
+  final SemanticColor semanticColor;
 
-extension QuiColorPaletteCopyWith on QuiColorPalette {
+  @protected
+  final Map<String, ColorRange>? extention;
+
+  factory QuiColorPalette.light({Map<String, ColorRange>? extention}) =>
+      QuiColorPalette(
+        primary: LightPrimary(),
+        grayScale: LightGrayScale(),
+        blackColor: OpacityColorRange(color: const Color(0xFF101014)),
+        whiteColor: OpacityColorRange(color: const Color(0xFFF3F6FD)),
+        semanticColor: LightSemanticColor(),
+        extention: extention,
+      );
+
+  factory QuiColorPalette.dark({Map<String, ColorRange>? extention}) =>
+      QuiColorPalette(
+        primary: DarkPrimary(),
+        grayScale: DarkGrayScale(),
+        blackColor: OpacityColorRange(color: const Color(0xFFF9FAFD)),
+        whiteColor: OpacityColorRange(color: const Color(0xFF101014)),
+        semanticColor: DarkSemanticColor(),
+        extention: extention,
+      );
+
+  ColorRange? operator [](String key) => extention?[key];
+
   QuiColorPalette copyWith({
     ColorRange? primary,
     ColorRange? grayScale,
     ColorRange? blackColor,
     ColorRange? whiteColor,
     SemanticColor? semanticColor,
+    Map<String, ColorRange>? extention,
   }) {
     return QuiColorPalette(
       primary: primary ?? this.primary,
@@ -184,6 +206,7 @@ extension QuiColorPaletteCopyWith on QuiColorPalette {
       blackColor: blackColor ?? this.blackColor,
       whiteColor: whiteColor ?? this.whiteColor,
       semanticColor: semanticColor ?? this.semanticColor,
+      extention: extention ?? this.extention,
     );
   }
 }
@@ -263,21 +286,7 @@ class LightSemanticColor implements SemanticColor {
   Color primaryLighten = const Color(0xFF2B31EC);
 }
 
-class LightColorPalette implements QuiColorPalette {
-  @override
-  LightPrimary primary = LightPrimary();
-  @override
-  LightGrayScale grayScale = LightGrayScale();
-  @override
-  ColorRange blackColor = OpacityColorRange(color: const Color(0xFF101014));
-  @override
-  ColorRange whiteColor = OpacityColorRange(color: const Color(0xFFF3F6FD));
-  @override
-  LightSemanticColor semanticColor = LightSemanticColor();
-}
-
 /// Dark Color Palette
-
 class DarkPrimary implements ColorRange {
   @override
   Color s0 = const Color(0xFFF2F6FA);
@@ -349,17 +358,4 @@ class DarkSemanticColor implements SemanticColor {
   Color stateOverlayFocused = const Color(0xFFBAD4FF);
   @override
   Color primaryLighten = const Color(0xFF8AB5FF);
-}
-
-class DarkColorPalette implements QuiColorPalette {
-  @override
-  DarkPrimary primary = DarkPrimary();
-  @override
-  DarkGrayScale grayScale = DarkGrayScale();
-  @override
-  ColorRange blackColor = OpacityColorRange(color: const Color(0xFFF9FAFD));
-  @override
-  ColorRange whiteColor = OpacityColorRange(color: const Color(0xFF101014));
-  @override
-  DarkSemanticColor semanticColor = DarkSemanticColor();
 }

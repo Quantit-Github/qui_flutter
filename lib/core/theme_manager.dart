@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:qui_flutter/style/color.dart';
 import 'package:qui_flutter/style/palette.dart';
 import 'package:qui_flutter/style/theme.dart';
+import 'package:qui_flutter/style/typography.dart';
 
 mixin QuiThemeManager {
   late $QuiTheme _theme;
@@ -46,4 +47,5 @@ mixin QuiThemeManager {
   }
 
   QuiColorPalette get palette => theme[themeMode.value];
+  QuiTextTheme get getTextTheme => theme.getTextTheme(themeMode.value);
 }

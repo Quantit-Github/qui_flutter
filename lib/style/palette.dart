@@ -1,3 +1,6 @@
+// ignore_for_file: invalid_use_of_protected_member
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:qui_flutter/style/color.dart';
 
@@ -14,10 +17,14 @@ class QuiPalette {
   QuiPalette({
     QuiColorPalette? light,
     QuiColorPalette? dark,
-  }) : _swatch = {
-          ThemeMode.light: light ?? LightColorPalette(),
-          ThemeMode.dark: dark ?? DarkColorPalette(),
-        };
+  })  : _swatch = {
+          ThemeMode.light: light ?? QuiColorPalette.light(),
+          ThemeMode.dark: dark ?? QuiColorPalette.dark(),
+        },
+        assert(
+            listEquals(light?.extention?.keys.toList() ?? [],
+                dark?.extention?.keys.toList() ?? []),
+            "light and dark extention keys must be same");
 
   @protected
   final Map<ThemeMode, QuiColorPalette> _swatch;
