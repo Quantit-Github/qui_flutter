@@ -1,3 +1,4 @@
+import 'package:example/pages/divider/divider_page.dart';
 import 'package:example/pages/toggle/toggle_page.dart';
 import 'package:flutter/material.dart';
 import 'package:qui_flutter/core/qui_theme.dart';
@@ -72,120 +73,129 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(QuiTheme.of(context).getThemeMode()),
       ),
-      body: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              ElevatedButton(
-                onPressed: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const TogglePage(),
-                  ),
+      body: Container(
+        width: double.infinity,
+        height: 500,
+        color: Colors.amber,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            ElevatedButton(
+              onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const TogglePage(),
                 ),
-                child: const Text("ToggleButton"),
               ),
-
-              // const Text("StateOverlay :: Common / Hover / Pressed / Focused"),
-              // Row(
-              //   children: [
-              //     Container(
-              //       width: 50,
-              //       height: 50,
-              //       color: QuiTheme.of(context).colorPalette.primary.s100,
-              //     ),
-              //     Container(
-              //       width: 50,
-              //       height: 50,
-              //       color: QuiTheme.of(context).darkColorPalette.primary.s100,
-              //     ),
-              //     Container(
-              //       width: 50,
-              //       height: 50,
-              //       color: QuiTheme.of(context).lightColorPalette.primary.s100,
-              //     ),
-              //   ],
-              // ),
-              // const Text("Buttons"),
-              // ElevatedButton(
-              //   onPressed: () {},
-              //   style: ElevatedButton.styleFrom(
-              //     backgroundColor: QuiTheme.of(context)
-              //         .colorTokens
-              //         .buttonTokens
-              //         .activePrimary
-              //         .container,
-              //   ),
-              //   child: Text(
-              //     "BTN/Active/Primary",
-              //     style: TextStyle(
-              //       color: QuiTheme.of(context)
-              //           .colorTokens
-              //           .buttonTokens
-              //           .activePrimary
-              //           .elements,
-              //     ),
-              //   ),
-              // ),
-              // ElevatedButton(
-              //   onPressed: () {},
-              //   style: ElevatedButton.styleFrom(
-              //     backgroundColor: QuiTheme.of(context)
-              //         .colorTokens
-              //         .buttonTokens
-              //         .activeSecondary
-              //         .container,
-              //   ),
-              //   child: Text(
-              //     "BTN/Active/Secondary",
-              //     style: TextStyle(
-              //       color: QuiTheme.of(context)
-              //           .colorTokens
-              //           .buttonTokens
-              //           .activeSecondary
-              //           .elements,
-              //     ),
-              //   ),
-              // ),
-              // Container(
-              //   width: 100,
-              //   height: 100,
-              //   alignment: Alignment.center,
-              //   color: QuiTheme.of(context)
-              //       .colorTokens
-              //       .buttonTokens
-              //       .activeGhost
-              //       .elements,
-              //   child: const Text(
-              //     "Button/Active/Ghost",
-              //     textAlign: TextAlign.center,
-              //     style: TextStyle(color: Colors.amber),
-              //   ),
-              // ),
-              // ElevatedButton(
-              //   onPressed: null,
-              //   style: ElevatedButton.styleFrom(
-              //     backgroundColor: QuiTheme.of(context)
-              //         .colorTokens
-              //         .buttonTokens
-              //         .activeDisabled
-              //         .container,
-              //   ),
-              //   child: Text(
-              //     "Button/Disabled",
-              //     textAlign: TextAlign.center,
-              //     style: TextStyle(
-              //       color: QuiTheme.of(context)
-              //           .colorTokens
-              //           .buttonTokens
-              //           .activeDisabled
-              //           .elements,
-              //     ),
-              //   ),
-              // ),
-            ],
-          ),
+              child: const Text("ToggleButton"),
+            ),
+            ElevatedButton(
+              onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const DividerPage(),
+                ),
+              ),
+              child: const Text("Divider"),
+            ),
+            // const Text("StateOverlay :: Common / Hover / Pressed / Focused"),
+            // Row(
+            //   children: [
+            //     Container(
+            //       width: 50,
+            //       height: 50,
+            //       color: QuiTheme.of(context).colorPalette.primary.s100,
+            //     ),
+            //     Container(
+            //       width: 50,
+            //       height: 50,
+            //       color: QuiTheme.of(context).darkColorPalette.primary.s100,
+            //     ),
+            //     Container(
+            //       width: 50,
+            //       height: 50,
+            //       color: QuiTheme.of(context).lightColorPalette.primary.s100,
+            //     ),
+            //   ],
+            // ),
+            // const Text("Buttons"),
+            // ElevatedButton(
+            //   onPressed: () {},
+            //   style: ElevatedButton.styleFrom(
+            //     backgroundColor: QuiTheme.of(context)
+            //         .colorTokens
+            //         .buttonTokens
+            //         .activePrimary
+            //         .container,
+            //   ),
+            //   child: Text(
+            //     "BTN/Active/Primary",
+            //     style: TextStyle(
+            //       color: QuiTheme.of(context)
+            //           .colorTokens
+            //           .buttonTokens
+            //           .activePrimary
+            //           .elements,
+            //     ),
+            //   ),
+            // ),
+            // ElevatedButton(
+            //   onPressed: () {},
+            //   style: ElevatedButton.styleFrom(
+            //     backgroundColor: QuiTheme.of(context)
+            //         .colorTokens
+            //         .buttonTokens
+            //         .activeSecondary
+            //         .container,
+            //   ),
+            //   child: Text(
+            //     "BTN/Active/Secondary",
+            //     style: TextStyle(
+            //       color: QuiTheme.of(context)
+            //           .colorTokens
+            //           .buttonTokens
+            //           .activeSecondary
+            //           .elements,
+            //     ),
+            //   ),
+            // ),
+            // Container(
+            //   width: 100,
+            //   height: 100,
+            //   alignment: Alignment.center,
+            //   color: QuiTheme.of(context)
+            //       .colorTokens
+            //       .buttonTokens
+            //       .activeGhost
+            //       .elements,
+            //   child: const Text(
+            //     "Button/Active/Ghost",
+            //     textAlign: TextAlign.center,
+            //     style: TextStyle(color: Colors.amber),
+            //   ),
+            // ),
+            // ElevatedButton(
+            //   onPressed: null,
+            //   style: ElevatedButton.styleFrom(
+            //     backgroundColor: QuiTheme.of(context)
+            //         .colorTokens
+            //         .buttonTokens
+            //         .activeDisabled
+            //         .container,
+            //   ),
+            //   child: Text(
+            //     "Button/Disabled",
+            //     textAlign: TextAlign.center,
+            //     style: TextStyle(
+            //       color: QuiTheme.of(context)
+            //           .colorTokens
+            //           .buttonTokens
+            //           .activeDisabled
+            //           .elements,
+            //     ),
+            //   ),
+            // ),
+          ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
