@@ -29,7 +29,7 @@ class BlackColor extends BaseColor {
           s60: s60 ?? const Color(0xFF101014).withOpacity(0.4),
           s50: s50 ?? const Color(0xFF101014).withOpacity(0.3),
           s40: s40 ?? const Color(0xFF101014).withOpacity(0.2),
-          s30: s30 ?? const Color(0xFF101014).withOpacity(0.12),
+          s30: s30 ?? const Color(0xFF101014).withOpacity(0.15),
           s20: s20 ?? const Color(0xFF101014).withOpacity(0.06),
           s10: s10 ?? const Color(0xFF101014).withOpacity(0.03),
           s0: s0 ?? const Color(0xFF101014).withOpacity(0),
