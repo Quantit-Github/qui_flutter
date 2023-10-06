@@ -3,6 +3,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:qui_flutter/style/color.dart';
+import 'package:qui_flutter/style/constant.dart';
 
 class QuiPalette {
   ///
@@ -18,8 +19,8 @@ class QuiPalette {
     QuiColorPalette? light,
     QuiColorPalette? dark,
   })  : _swatch = {
-          ThemeMode.light: light ?? QuiColorPalette.light(),
-          ThemeMode.dark: dark ?? QuiColorPalette.dark(),
+          ThemeMode.light: light ?? QUI_LIGHT_PALETTE,
+          ThemeMode.dark: dark ?? QUI_DARK_PALETTE,
         },
         assert(
             listEquals(light?.extention?.keys.toList() ?? [],

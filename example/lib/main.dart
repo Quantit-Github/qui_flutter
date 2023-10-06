@@ -2,6 +2,7 @@ import 'package:example/pages/toggle/toggle_page.dart';
 import 'package:flutter/material.dart';
 import 'package:qui_flutter/core/qui_theme.dart';
 import 'package:qui_flutter/style/color.dart';
+import 'package:qui_flutter/style/constant.dart';
 import 'package:qui_flutter/style/typography.dart';
 
 void main() async {
@@ -19,14 +20,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return QuiTheme(
       initialThemeMode: ThemeMode.system,
-      light: QuiColorPalette.light(
+      light: QUI_LIGHT_PALETTE.copyWith(
         extention: {
-          "custom": OpacityColorRange(color: Colors.red),
+          "custom": ColorRange.withOpacity(color: Colors.red),
         },
       ),
-      dark: QuiColorPalette.dark(
+      dark: QUI_DARK_PALETTE.copyWith(
         extention: {
-          "custom": OpacityColorRange(color: Colors.blue),
+          "custom": ColorRange.withOpacity(color: Colors.blue),
         },
       ),
       builder: (light, dark, mode) => MaterialApp(
@@ -61,7 +62,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    TextStyle buttonTextStyle = QuiTheme.textTheme(context).titleSmall.bold;
+    TextStyle buttonTextStyle = QuiTheme.typography(context).titleSmall.bold;
 
     return Scaffold(
       appBar: AppBar(
@@ -74,7 +75,7 @@ class _MyHomePageState extends State<MyHomePage> {
             children: <Widget>[
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: QuiTheme.of(context).palette["custom"]!.s80,
+                  backgroundColor: QuiTheme.of(context).color["custom"]!.s80,
                 ),
                 onPressed: () => Navigator.push(
                   context,

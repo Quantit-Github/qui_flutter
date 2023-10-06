@@ -48,8 +48,8 @@ class QuiTheme extends StatefulWidget {
   static ThemeMode getThemeMode(BuildContext context) =>
       of(context).themeMode.value;
   static ThemeData getThemeData(BuildContext context) => Theme.of(context);
-  static QuiTextTheme textTheme(BuildContext context) =>
-      of(context).getTextTheme;
+  static QuiTypography typography(BuildContext context) =>
+      of(context).typography;
 
   @override
   State<QuiTheme> createState() => _QuiThemeState();
@@ -75,8 +75,8 @@ class _QuiThemeState extends State<QuiTheme> with QuiThemeManager {
           themeManager: this,
           themeMode: value,
           child: widget.builder(
-            theme.lightThemeData,
-            theme.darkThemeData,
+            platte.light.themeData,
+            platte.dark.themeData,
             value,
           ),
         );

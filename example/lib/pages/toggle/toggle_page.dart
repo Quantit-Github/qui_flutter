@@ -16,7 +16,7 @@ class TogglePage extends StatelessWidget {
           children: [
             Text(
               "Toggle Component",
-              style: QuiTheme.textTheme(context).headlineLarge.bold,
+              style: QuiTheme.typography(context).headlineLarge.bold,
             ),
             // QuiToggle(
             //   flag: false,

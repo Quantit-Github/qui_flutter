@@ -13,7 +13,7 @@ class QuiTextStyle extends TextStyle {
         );
 }
 
-class QuiTextTheme extends TextTheme {
+class QuiTypography extends TextTheme {
   final TextStyle _displayLarge;
   final TextStyle _displayMedium;
   final TextStyle _displaySmall;
@@ -30,7 +30,7 @@ class QuiTextTheme extends TextTheme {
   final TextStyle _labelMedium;
   final TextStyle _labelSmall;
 
-  QuiTextTheme({required Color color})
+  QuiTypography({required Color color})
       : _displayLarge = QuiTextStyle(fontSize: 56, height: 64, color: color),
         _displayMedium = QuiTextStyle(fontSize: 44, height: 52, color: color),
         _displaySmall = QuiTextStyle(fontSize: 36, height: 44, color: color),

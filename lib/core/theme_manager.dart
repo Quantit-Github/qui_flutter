@@ -6,7 +6,7 @@ import 'package:qui_flutter/style/typography.dart';
 
 mixin QuiThemeManager {
   late $QuiTheme _theme;
-  $QuiTheme get theme => _theme;
+  QuiPalette get platte => _theme.palette;
 
   late final ValueNotifier<ThemeMode> _themeMode;
   ValueNotifier<ThemeMode> get themeMode => _themeMode;
@@ -46,6 +46,6 @@ mixin QuiThemeManager {
     _themeMode.value = mode;
   }
 
-  QuiColorPalette get palette => theme[themeMode.value];
-  QuiTextTheme get getTextTheme => theme.getTextTheme(themeMode.value);
+  QuiColorPalette get color => platte[themeMode.value];
+  QuiTypography get typography => color.typography;
 }

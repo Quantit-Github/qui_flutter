@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qui_flutter/style/typography.dart';
 
 class ColorRange {
   /// {@template ColorRange}
@@ -26,7 +27,7 @@ class ColorRange {
   final Color s99;
   final Color s100;
 
-  ColorRange({
+  const ColorRange({
     required this.s0,
     required this.s10,
     required this.s20,
@@ -41,9 +42,23 @@ class ColorRange {
     required this.s99,
     required this.s100,
   });
-}
 
-extension ColorRangeCopyWith on ColorRange {
+  factory ColorRange.withOpacity({required Color color}) => ColorRange(
+        s0: color,
+        s10: color.withOpacity(0.9),
+        s20: color.withOpacity(0.8),
+        s30: color.withOpacity(0.7),
+        s40: color.withOpacity(0.6),
+        s50: color.withOpacity(0.5),
+        s60: color.withOpacity(0.4),
+        s70: color.withOpacity(0.3),
+        s80: color.withOpacity(0.2),
+        s90: color.withOpacity(0.15),
+        s95: color.withOpacity(0.06),
+        s99: color.withOpacity(0.03),
+        s100: color.withOpacity(0),
+      );
+
   ColorRange copyWith({
     Color? s0,
     Color? s10,
@@ -77,35 +92,6 @@ extension ColorRangeCopyWith on ColorRange {
   }
 }
 
-class OpacityColorRange extends ColorRange {
-  ///
-  /// Creates BlackColor
-  ///
-  /// creates a [ColorRange] with [Color] as the base color.
-  /// [color] must not be null.
-  ///
-  /// Inherits [ColorRange]
-  /// {@macro ColorRange}
-
-  OpacityColorRange({
-    required Color color,
-  }) : super(
-          s0: color,
-          s10: color.withOpacity(0.9),
-          s20: color.withOpacity(0.8),
-          s30: color.withOpacity(0.7),
-          s40: color.withOpacity(0.6),
-          s50: color.withOpacity(0.5),
-          s60: color.withOpacity(0.4),
-          s70: color.withOpacity(0.3),
-          s80: color.withOpacity(0.2),
-          s90: color.withOpacity(0.15),
-          s95: color.withOpacity(0.06),
-          s99: color.withOpacity(0.03),
-          s100: color.withOpacity(0),
-        );
-}
-
 class SemanticColor {
   ///
   /// Creates SemanticColor
@@ -121,7 +107,7 @@ class SemanticColor {
   final Color stateOverlayFocused;
   final Color primaryLighten;
 
-  SemanticColor({
+  const SemanticColor({
     required this.brightest,
     required this.borderHigh,
     required this.borderMedium,
@@ -152,45 +138,20 @@ extension SemanticColorCopyWith on SemanticColor {
 }
 
 class QuiColorPalette {
-  QuiColorPalette({
+  const QuiColorPalette({
     required this.primary,
     required this.grayScale,
     required this.blackColor,
     required this.whiteColor,
     required this.semanticColor,
-    Map<String, ColorRange>? extention,
-  }) : extention = extention ?? {};
+    this.extention,
+  });
 
   final ColorRange primary;
   final ColorRange grayScale;
   final ColorRange blackColor;
   final ColorRange whiteColor;
   final SemanticColor semanticColor;
-
-  @protected
-  final Map<String, ColorRange>? extention;
-
-  factory QuiColorPalette.light({Map<String, ColorRange>? extention}) =>
-      QuiColorPalette(
-        primary: LightPrimary(),
-        grayScale: LightGrayScale(),
-        blackColor: OpacityColorRange(color: const Color(0xFF101014)),
-        whiteColor: OpacityColorRange(color: const Color(0xFFF3F6FD)),
-        semanticColor: LightSemanticColor(),
-        extention: extention,
-      );
-
-  factory QuiColorPalette.dark({Map<String, ColorRange>? extention}) =>
-      QuiColorPalette(
-        primary: DarkPrimary(),
-        grayScale: DarkGrayScale(),
-        blackColor: OpacityColorRange(color: const Color(0xFFF9FAFD)),
-        whiteColor: OpacityColorRange(color: const Color(0xFF101014)),
-        semanticColor: DarkSemanticColor(),
-        extention: extention,
-      );
-
-  ColorRange? operator [](String key) => extention?[key];
 
   QuiColorPalette copyWith({
     ColorRange? primary,
@@ -209,153 +170,41 @@ class QuiColorPalette {
       extention: extention ?? this.extention,
     );
   }
-}
 
-/// Light Color Palette
+  @protected
+  final Map<String, ColorRange>? extention;
+  ColorRange? operator [](String key) => extention?[key];
 
-class LightPrimary implements ColorRange {
-  @override
-  Color s0 = const Color(0xFF040518);
-  @override
-  Color s10 = const Color(0xFF090A2F);
-  @override
-  Color s20 = const Color(0xFF0D0F47);
-  @override
-  Color s30 = const Color(0xFF11145E);
-  @override
-  Color s40 = const Color(0xFF1A1D8E);
-  @override
-  Color s50 = const Color(0xFF2227BD);
-  @override
-  Color s60 = const Color(0xFF2B31EC);
-  @override
-  Color s70 = const Color(0xFF3355FF);
-  @override
-  Color s80 = const Color(0xFF5B8FFF);
-  @override
-  Color s90 = const Color(0xFF8AB5FF);
-  @override
-  Color s95 = const Color(0xFFBAD4FF);
-  @override
-  Color s99 = const Color(0xFFD8E2FA);
-  @override
-  Color s100 = const Color(0xFFF2F6FA);
-}
+  QuiTypography get typography => QuiTypography(color: blackColor.s0);
+  ThemeData get themeData {
+    final QuiTypography _typography = typography;
 
-class LightGrayScale implements ColorRange {
-  @override
-  Color s0 = const Color(0xFF1B1D20);
-  @override
-  Color s10 = const Color(0xFF3D3F45);
-  @override
-  Color s20 = const Color(0xFF525559);
-  @override
-  Color s30 = const Color(0xFF686A6E);
-  @override
-  Color s40 = const Color(0xFF7D7F83);
-  @override
-  Color s50 = const Color(0xFF939597);
-  @override
-  Color s60 = const Color(0xFFA9AAAC);
-  @override
-  Color s70 = const Color(0xFFBEBFC1);
-  @override
-  Color s80 = const Color(0xFFD4D4D6);
-  @override
-  Color s90 = const Color(0xFFE9EAEA);
-  @override
-  Color s95 = const Color(0xFFF4F4F5);
-  @override
-  Color s99 = const Color(0xFFF9F9F9);
-  @override
-  Color s100 = const Color(0xFFFDFDFD);
-}
-
-class LightSemanticColor implements SemanticColor {
-  @override
-  Color brightest = const Color(0xFFFDFDFD);
-  @override
-  Color borderHigh = const Color(0xFF101014).withOpacity(0.8);
-  @override
-  Color borderMedium = const Color(0xFF101014).withOpacity(0.15);
-  @override
-  Color borderLow = const Color(0xFF101014).withOpacity(0.06);
-  @override
-  Color stateOverlayFocused = const Color(0xFFBAD4FF);
-  @override
-  Color primaryLighten = const Color(0xFF2B31EC);
-}
-
-/// Dark Color Palette
-class DarkPrimary implements ColorRange {
-  @override
-  Color s0 = const Color(0xFFF2F6FA);
-  @override
-  Color s10 = const Color(0xFFD8E2FA);
-  @override
-  Color s20 = const Color(0xFFBAD4FF);
-  @override
-  Color s30 = const Color(0xFF8AB5FF);
-  @override
-  Color s40 = const Color(0xFF5B8FFF);
-  @override
-  Color s50 = const Color(0xFF3355FF);
-  @override
-  Color s60 = const Color(0xFF2B31EC);
-  @override
-  Color s70 = const Color(0xFF2227BD);
-  @override
-  Color s80 = const Color(0xFF1A1D8E);
-  @override
-  Color s90 = const Color(0xFF11145E);
-  @override
-  Color s95 = const Color(0xFF0D0F47);
-  @override
-  Color s99 = const Color(0xFF090A2F);
-  @override
-  Color s100 = const Color(0xFF040518);
-}
-
-class DarkGrayScale implements ColorRange {
-  @override
-  Color s0 = const Color(0xFFFDFDFD);
-  @override
-  Color s10 = const Color(0xFFF9F9F9);
-  @override
-  Color s20 = const Color(0xFFF4F4F5);
-  @override
-  Color s30 = const Color(0xFFE9EAEA);
-  @override
-  Color s40 = const Color(0xFFD4D4D6);
-  @override
-  Color s50 = const Color(0xFFBEBFC1);
-  @override
-  Color s60 = const Color(0xFFA9AAAC);
-  @override
-  Color s70 = const Color(0xFF939597);
-  @override
-  Color s80 = const Color(0xFF7D7F83);
-  @override
-  Color s90 = const Color(0xFF686A6E);
-  @override
-  Color s95 = const Color(0xFF525559);
-  @override
-  Color s99 = const Color(0xFF3D3F45);
-  @override
-  Color s100 = const Color(0xFF1B1D20);
-}
-
-class DarkSemanticColor implements SemanticColor {
-  @override
-  Color brightest = const Color(0xFFFDFDFD);
-  @override
-  Color borderHigh = const Color(0xFFF9FAFD).withOpacity(0.8);
-  @override
-  Color borderMedium = const Color(0xFFF9FAFD).withOpacity(0.15);
-  @override
-  Color borderLow = const Color(0xFFF9FAFD).withOpacity(0.06);
-  @override
-  Color stateOverlayFocused = const Color(0xFFBAD4FF);
-  @override
-  Color primaryLighten = const Color(0xFF8AB5FF);
+    // TODO: Add more theme data
+    return ThemeData(
+      useMaterial3: true,
+      brightness: Brightness.light,
+      primaryColor: primary.s50,
+      splashColor: Colors.transparent,
+      fontFamily: "Pretendard",
+      textTheme: _typography,
+      focusColor: primary.s30,
+      highlightColor: whiteColor.s20,
+      shadowColor: Colors.transparent,
+      scaffoldBackgroundColor: whiteColor.s0,
+      appBarTheme: AppBarTheme(
+        backgroundColor: whiteColor.s0,
+        foregroundColor: blackColor.s0,
+        elevation: 0,
+        centerTitle: true,
+        titleTextStyle: _typography.headlineMedium,
+        iconTheme: IconThemeData(
+          color: blackColor.s0,
+        ),
+      ),
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        backgroundColor: primary.s90,
+        foregroundColor: blackColor.s0,
+      ),
+    );
+  }
 }
