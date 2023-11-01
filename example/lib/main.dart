@@ -1,4 +1,4 @@
-import 'package:example/pages/toggle/toggle_page.dart';
+import 'package:example/pages/toggle.dart';
 import 'package:flutter/material.dart';
 import 'package:qui_flutter/core/qui_theme.dart';
 import 'package:qui_flutter/style/color.dart';
@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
       initialThemeMode: ThemeMode.system,
       light: QUI_LIGHT_PALETTE.copyWith(
         extension: {
-          "custom": ColorRange.withOpacity(color: Colors.red),
+          "custom": ColorRange.withOpacity(color: Colors.green),
         },
       ),
       dark: QUI_DARK_PALETTE.copyWith(
@@ -37,6 +37,28 @@ class MyApp extends StatelessWidget {
         themeMode: mode,
         home: const MyHomePage(title: 'Flutter Demo Home Page'),
       ),
+    );
+  }
+}
+
+class PageRouteButton extends StatelessWidget {
+  final Widget page;
+  final String title;
+  const PageRouteButton({super.key, required this.page, required this.title});
+
+  @override
+  Widget build(BuildContext context) {
+    QuiColorPalette color = QuiTheme.of(context).color;
+    QuiTypography typography = QuiTheme.typography(context);
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: color.primary.s90,
+      ),
+      onPressed: () => Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => page),
+      ),
+      child: Text(title, style: typography.titleSmall.bold),
     );
   }
 }
@@ -60,40 +82,35 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  QuiColorPalette get color => QuiTheme.of(context).color;
+  QuiTypography get typography => QuiTheme.typography(context);
+
   @override
   Widget build(BuildContext context) {
-    TextStyle buttonTextStyle = QuiTheme.typography(context).titleSmall.bold;
-
     return Scaffold(
       appBar: AppBar(
-        title: Text(QuiTheme.getThemeMode(context).toString()),
+        title: Text("Example App", style: typography.titleLarge.bold),
+        backgroundColor: color.primary.s90,
+        scrolledUnderElevation: 1,
       ),
-      body: SingleChildScrollView(
+      body: const SingleChildScrollView(
+        padding: EdgeInsets.only(top: 16),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: QuiTheme.of(context).color["custom"]!.s80,
-                ),
-                onPressed: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const TogglePage(),
-                  ),
-                ),
-                child: Text(
-                  "ToggleButton",
-                  style: buttonTextStyle,
-                ),
-              ),
+              PageRouteButton(
+                page: TogglePage(),
+                title: "TogglePage",
+              )
             ],
           ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => QuiTheme.of(context).toggleThemeMode(),
+        backgroundColor: color.primary.s90,
         child: Builder(builder: (context) {
           final themeMode = QuiTheme.of(context).themeMode;
           if (themeMode.value == ThemeMode.light) {

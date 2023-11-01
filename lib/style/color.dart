@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:qui_flutter/style/typography.dart';
 
-class ColorRange {
+class ColorRange extends Color {
   /// {@template ColorRange}
   /// Creates ColorRange
   ///
@@ -27,7 +27,7 @@ class ColorRange {
   final Color s99;
   final Color s100;
 
-  const ColorRange({
+  ColorRange({
     required this.s0,
     required this.s10,
     required this.s20,
@@ -41,7 +41,7 @@ class ColorRange {
     required this.s95,
     required this.s99,
     required this.s100,
-  });
+  }) : super(s0.value);
 
   factory ColorRange.withOpacity({required Color color}) => ColorRange(
         s0: color,
@@ -175,7 +175,7 @@ class QuiColorPalette {
   final Map<String, ColorRange>? extension;
   ColorRange? operator [](String key) => extension?[key];
 
-  QuiTypography get typography => QuiTypography(color: blackColor.s0);
+  QuiTypography get typography => QuiTypography(color: blackColor);
   ThemeData get themeData {
     final QuiTypography _typography = typography;
 
