@@ -1,36 +1,34 @@
 import 'package:example/pages/toggle/toggle_page.dart';
 import 'package:flutter/material.dart';
 import 'package:qui_flutter/core/qui_theme.dart';
-import 'package:qui_flutter/style/base_color/primary_color.dart';
-import 'package:qui_flutter/style/color_pallete.dart';
+import 'package:qui_flutter/style/color.dart';
+import 'package:qui_flutter/style/constant.dart';
+import 'package:qui_flutter/style/typography.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  final savedThemeMode = await QuiTheme.getThemeMode();
-  runApp(MyApp(themeMode: savedThemeMode));
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({
-    required this.themeMode,
     super.key,
   });
-
-  final ThemeMode themeMode;
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return QuiTheme(
-      initThemeMode: themeMode,
-      colorPalette: QuiColorPallete().copyWith(
-        primary: PrimaryColor().copyWith(
-          s50: Colors.blue,
-          s40: Colors.red,
-          s30: Colors.green,
-          s99: Colors.orange,
-        ),
+      initialThemeMode: ThemeMode.system,
+      light: QUI_LIGHT_PALETTE.copyWith(
+        extension: {
+          "custom": ColorRange.withOpacity(color: Colors.red),
+        },
+      ),
+      dark: QUI_DARK_PALETTE.copyWith(
+        extension: {
+          "custom": ColorRange.withOpacity(color: Colors.blue),
+        },
       ),
       builder: (light, dark, mode) => MaterialApp(
         theme: light,
@@ -62,15 +60,13 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  void _incrementCounter(BuildContext context) {
-    QuiTheme.of(context).toggleThemeMode();
-  }
-
   @override
   Widget build(BuildContext context) {
+    TextStyle buttonTextStyle = QuiTheme.typography(context).titleSmall.bold;
+
     return Scaffold(
       appBar: AppBar(
-        title: Text(QuiTheme.of(context).getThemeMode()),
+        title: Text(QuiTheme.getThemeMode(context).toString()),
       ),
       body: SingleChildScrollView(
         child: Center(
@@ -78,120 +74,37 @@ class _MyHomePageState extends State<MyHomePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: QuiTheme.of(context).color["custom"]!.s80,
+                ),
                 onPressed: () => Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => const TogglePage(),
                   ),
                 ),
-                child: const Text("ToggleButton"),
+                child: Text(
+                  "ToggleButton",
+                  style: buttonTextStyle,
+                ),
               ),
-
-              // const Text("StateOverlay :: Common / Hover / Pressed / Focused"),
-              // Row(
-              //   children: [
-              //     Container(
-              //       width: 50,
-              //       height: 50,
-              //       color: QuiTheme.of(context).colorPalette.primary.s100,
-              //     ),
-              //     Container(
-              //       width: 50,
-              //       height: 50,
-              //       color: QuiTheme.of(context).darkColorPalette.primary.s100,
-              //     ),
-              //     Container(
-              //       width: 50,
-              //       height: 50,
-              //       color: QuiTheme.of(context).lightColorPalette.primary.s100,
-              //     ),
-              //   ],
-              // ),
-              // const Text("Buttons"),
-              // ElevatedButton(
-              //   onPressed: () {},
-              //   style: ElevatedButton.styleFrom(
-              //     backgroundColor: QuiTheme.of(context)
-              //         .colorTokens
-              //         .buttonTokens
-              //         .activePrimary
-              //         .container,
-              //   ),
-              //   child: Text(
-              //     "BTN/Active/Primary",
-              //     style: TextStyle(
-              //       color: QuiTheme.of(context)
-              //           .colorTokens
-              //           .buttonTokens
-              //           .activePrimary
-              //           .elements,
-              //     ),
-              //   ),
-              // ),
-              // ElevatedButton(
-              //   onPressed: () {},
-              //   style: ElevatedButton.styleFrom(
-              //     backgroundColor: QuiTheme.of(context)
-              //         .colorTokens
-              //         .buttonTokens
-              //         .activeSecondary
-              //         .container,
-              //   ),
-              //   child: Text(
-              //     "BTN/Active/Secondary",
-              //     style: TextStyle(
-              //       color: QuiTheme.of(context)
-              //           .colorTokens
-              //           .buttonTokens
-              //           .activeSecondary
-              //           .elements,
-              //     ),
-              //   ),
-              // ),
-              // Container(
-              //   width: 100,
-              //   height: 100,
-              //   alignment: Alignment.center,
-              //   color: QuiTheme.of(context)
-              //       .colorTokens
-              //       .buttonTokens
-              //       .activeGhost
-              //       .elements,
-              //   child: const Text(
-              //     "Button/Active/Ghost",
-              //     textAlign: TextAlign.center,
-              //     style: TextStyle(color: Colors.amber),
-              //   ),
-              // ),
-              // ElevatedButton(
-              //   onPressed: null,
-              //   style: ElevatedButton.styleFrom(
-              //     backgroundColor: QuiTheme.of(context)
-              //         .colorTokens
-              //         .buttonTokens
-              //         .activeDisabled
-              //         .container,
-              //   ),
-              //   child: Text(
-              //     "Button/Disabled",
-              //     textAlign: TextAlign.center,
-              //     style: TextStyle(
-              //       color: QuiTheme.of(context)
-              //           .colorTokens
-              //           .buttonTokens
-              //           .activeDisabled
-              //           .elements,
-              //     ),
-              //   ),
-              // ),
             ],
           ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => _incrementCounter(context),
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+        onPressed: () => QuiTheme.of(context).toggleThemeMode(),
+        child: Builder(builder: (context) {
+          final themeMode = QuiTheme.of(context).themeMode;
+          if (themeMode.value == ThemeMode.light) {
+            return const Icon(Icons.light_mode);
+          } else if (themeMode.value == ThemeMode.dark) {
+            return const Icon(Icons.dark_mode);
+          } else {
+            return const Icon(Icons.settings_brightness);
+          }
+        }), // This trailing comma makes auto-formatting nicer for build methods.
+      ),
     );
   }
 }
