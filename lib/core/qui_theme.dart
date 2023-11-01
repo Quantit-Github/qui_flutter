@@ -75,8 +75,8 @@ class _QuiThemeState extends State<QuiTheme> with QuiThemeManager {
           themeManager: this,
           themeMode: value,
           child: widget.builder(
-            platte.light.themeData,
-            platte.dark.themeData,
+            palette.light.themeData,
+            palette.dark.themeData,
             value,
           ),
         );

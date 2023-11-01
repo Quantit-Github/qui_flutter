@@ -144,7 +144,7 @@ class QuiColorPalette {
     required this.blackColor,
     required this.whiteColor,
     required this.semanticColor,
-    this.extention,
+    this.extension,
   });
 
   final ColorRange primary;
@@ -159,7 +159,7 @@ class QuiColorPalette {
     ColorRange? blackColor,
     ColorRange? whiteColor,
     SemanticColor? semanticColor,
-    Map<String, ColorRange>? extention,
+    Map<String, ColorRange>? extension,
   }) {
     return QuiColorPalette(
       primary: primary ?? this.primary,
@@ -167,13 +167,13 @@ class QuiColorPalette {
       blackColor: blackColor ?? this.blackColor,
       whiteColor: whiteColor ?? this.whiteColor,
       semanticColor: semanticColor ?? this.semanticColor,
-      extention: extention ?? this.extention,
+      extension: extension ?? this.extension,
     );
   }
 
   @protected
-  final Map<String, ColorRange>? extention;
-  ColorRange? operator [](String key) => extention?[key];
+  final Map<String, ColorRange>? extension;
+  ColorRange? operator [](String key) => extension?[key];
 
   QuiTypography get typography => QuiTypography(color: blackColor.s0);
   ThemeData get themeData {

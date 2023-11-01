@@ -21,12 +21,12 @@ class MyApp extends StatelessWidget {
     return QuiTheme(
       initialThemeMode: ThemeMode.system,
       light: QUI_LIGHT_PALETTE.copyWith(
-        extention: {
+        extension: {
           "custom": ColorRange.withOpacity(color: Colors.red),
         },
       ),
       dark: QUI_DARK_PALETTE.copyWith(
-        extention: {
+        extension: {
           "custom": ColorRange.withOpacity(color: Colors.blue),
         },
       ),

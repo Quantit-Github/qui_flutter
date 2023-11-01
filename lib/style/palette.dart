@@ -23,9 +23,9 @@ class QuiPalette {
           ThemeMode.dark: dark ?? QUI_DARK_PALETTE,
         },
         assert(
-            listEquals(light?.extention?.keys.toList() ?? [],
-                dark?.extention?.keys.toList() ?? []),
-            "light and dark extention keys must be same");
+            listEquals(light?.extension?.keys.toList() ?? [],
+                dark?.extension?.keys.toList() ?? []),
+            "light and dark extension keys must be same");
 
   @protected
   final Map<ThemeMode, QuiColorPalette> _swatch;
