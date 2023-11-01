@@ -51,6 +51,14 @@ class QuiTheme extends StatefulWidget {
   static QuiTypography typography(BuildContext context) =>
       of(context).typography;
 
+  static bool isDark(BuildContext context) {
+    final themeMode = getThemeMode(context);
+    if (themeMode == ThemeMode.system) {
+      return MediaQuery.of(context).platformBrightness == Brightness.dark;
+    }
+    return themeMode == ThemeMode.dark;
+  }
+
   @override
   State<QuiTheme> createState() => _QuiThemeState();
 }

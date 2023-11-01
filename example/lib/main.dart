@@ -1,9 +1,9 @@
+import 'package:example/components/toggle_theme.dart';
+import 'package:example/pages/checkbox.dart';
 import 'package:example/pages/toggle.dart';
 import 'package:flutter/material.dart';
-import 'package:qui_flutter/core/qui_theme.dart';
-import 'package:qui_flutter/style/color.dart';
+import 'package:qui_flutter/qui_flutter.dart';
 import 'package:qui_flutter/style/constant.dart';
-import 'package:qui_flutter/style/typography.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return QuiTheme(
-      initialThemeMode: ThemeMode.system,
+      initialThemeMode: ThemeMode.light,
       light: QUI_LIGHT_PALETTE.copyWith(
         extension: {
           "custom": ColorRange.withOpacity(color: Colors.green),
@@ -103,25 +103,13 @@ class _MyHomePageState extends State<MyHomePage> {
               PageRouteButton(
                 page: TogglePage(),
                 title: "TogglePage",
-              )
+              ),
+              PageRouteButton(page: CheckBoxPage(), title: "CheckBoxPage")
             ],
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => QuiTheme.of(context).toggleThemeMode(),
-        backgroundColor: color.primary.s90,
-        child: Builder(builder: (context) {
-          final themeMode = QuiTheme.of(context).themeMode;
-          if (themeMode.value == ThemeMode.light) {
-            return const Icon(Icons.light_mode);
-          } else if (themeMode.value == ThemeMode.dark) {
-            return const Icon(Icons.dark_mode);
-          } else {
-            return const Icon(Icons.settings_brightness);
-          }
-        }), // This trailing comma makes auto-formatting nicer for build methods.
-      ),
+      floatingActionButton: const ToggleTheme(),
     );
   }
 }

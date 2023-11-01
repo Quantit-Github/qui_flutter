@@ -6,6 +6,7 @@ class QuiTextStyle extends TextStyle {
     required double height,
     required Color color,
   }) : super(
+          fontFamily: "Pretendard",
           fontSize: fontSize,
           height: height / fontSize,
           color: color,
