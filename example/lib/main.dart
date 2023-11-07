@@ -1,5 +1,7 @@
 import 'package:example/pages/toggle/toggle_page.dart';
 import 'package:flutter/material.dart';
+import 'package:qui_flutter/components/buttons/base.dart';
+import 'package:qui_flutter/components/buttons/primary.dart';
 import 'package:qui_flutter/core/qui_theme.dart';
 import 'package:qui_flutter/style/color.dart';
 import 'package:qui_flutter/style/constant.dart';
@@ -73,6 +75,59 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              Container(
+                color: QuiTheme.of(context).color.primary.s100,
+              ),
+              QuiButtonPrimary(
+                alignment: ButtonAlign.center,
+                title: "안녕하세요 버튼",
+                suffix: const Icon(Icons.add),
+                prefix: const Icon(Icons.remove),
+                onPressed: () {},
+              ),
+              // QuiButton.primary(
+              //   context: context,
+              //   alignment: ButtonAlign.center,
+              //   onPressed: () {},
+              //   size: ButtonSize.xl,
+              //   suffixWidget: Icon(
+              //     Icons.add,
+              //     color: ButtonPrimaryToken(context).elements,
+              //   ),
+              //   prefixWidget: const Icon(Icons.remove),
+              //   title: "Primary Button",
+              // ),
+              // QuiButton.ghost(
+              //   context: context,
+              //   alignment: ButtonAlign.center,
+              //   onPressed: () {},
+              //   size: ButtonSize.xl,
+              //   suffixWidget: const Icon(Icons.add),
+              //   prefixWidget: const Icon(Icons.remove),
+              //   title: "Primary Button",
+              // ),
+              // QuiButton.secondary(
+              //   context: context,
+              //   alignment: ButtonAlign.Center,
+              //   onPressed: () {},
+              //   suffixWidget: const Icon(Icons.add),
+              //   prefixWidget: const Icon(Icons.remove),
+              //   title: "Secondary Button",
+              // ),
+              // QuiButton.primary(
+              //   context: context,
+              //   alignment: ButtonAlign.Center,
+              //   suffixWidget: const Icon(Icons.add),
+              //   prefixWidget: const Icon(Icons.remove),
+              //   title: "Primary Button Disabled",
+              // ),
+              // QuiButton.secondary(
+              //   context: context,
+              //   alignment: ButtonAlign.Center,
+              //   suffixWidget: const Icon(Icons.add),
+              //   prefixWidget: const Icon(Icons.remove),
+              //   title: "Secondary Button Disabled",
+              // ),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: QuiTheme.of(context).color["custom"]!.s80,
